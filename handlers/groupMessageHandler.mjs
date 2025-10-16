@@ -1,5 +1,7 @@
 // handlers/groupMessageHandler.mjs
-import { getSholatByLocation, getKodeKota } from "../utils/sholat.js";
+import { handleJadwalSholat } from "../utils/sholat.js";
+import { handleHasilLari } from "../utils/stravaService.js";
+import { publishMessage } from "../utils/mqttServices.js";
 
 export default async function groupMessageHandler(client, message) {
   console.log("📢 Pesan dari grup.");
@@ -7,33 +9,20 @@ export default async function groupMessageHandler(client, message) {
   const text = message.body.toLowerCase();
 
   console.log(`👥 Grup: ${chat.name}`);
+  const oriText = message.body;
 
   if (text.startsWith("jadwal sholat")) {
-    const namaKota = text.replace("jadwal sholat", "").trim();
-    if (!namaKota) {
-      await chat.sendMessage(
-        "⚠️ Tolong sebutkan nama kota. Contoh: *jadwal sholat bandung*"
-      );
-      return;
+    await handleJadwalSholat(chat, text);
+  } else if (text.toLowerCase() === "hasil club lari") {
+    await handleHasilLari(chat, text);
+  } else if (text.toLowerCase().startsWith("led:")) {
+    const parts = oriText.split(":");
+    const msg = parts[1]; // keep original case
+    const topic = parts[2]; // keep original case
+    if (topic === undefined) {
+      topic = "parola/display";
     }
-
-    console.log(`🔍 Mencari kode kota untuk: ${namaKota}`);
-    const idKotaArray = await getKodeKota(namaKota);
-
-    if (idKotaArray.length === 0) {
-      await chat.sendMessage(
-        `⚠️ Tidak ditemukan kota dengan nama *${namaKota}*.`
-      );
-      return;
-    }
-
-    for (const idKota of idKotaArray) {
-      const replyMsg = await getSholatByLocation(idKota);
-      await chat.sendMessage(replyMsg);
-    }
-  } else {
-    console.log(
-      "ℹ️ Pesan dari grup tidak diproses karena tidak sesuai perintah."
-    );
+    console.log(`🔆 Perintah LED: ${msg} ke topic ${topic}`);
+    publishMessage(topic, msg);
   }
 }

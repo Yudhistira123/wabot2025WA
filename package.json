@@ -17,6 +17,7 @@
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
     "hijri-converter": "^1.1.1",
+    "mqtt": "^5.14.1",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.10",
     "qrcode-terminal": "^0.12.0",

@@ -332,57 +332,28 @@ export function emphasizeArabic(text) {
     .join("");
 }
 
-// kirim n ayat berurutan
-// export async function sendAyatLoop(surat, startAyat, n, sock, from) {
-//   for (let i = 0; i < n; i++) {
-//     const currentAyat = parseInt(startAyat) + i;
+export async function handleJadwalSholat(chat, text) {
+  const namaKota = text.replace("jadwal sholat", "").trim();
 
-//     const result = await getSuratAyat(surat, currentAyat);
-//     if (result && result.data && result.data[0]) {
-//       const ayatData = result.data[0];
+  if (!namaKota) {
+    await chat.sendMessage(
+      "⚠️ Tolong sebutkan nama kota. Contoh: *jadwal sholat bandung*"
+    );
+    return;
+  }
 
-//       const message = `
-// 📖 *${result.info.surat.nama.id} (${result.info.surat.id}):${ayatData.ayah} | Juz: ${ayatData.juz}*
+  console.log(`🔍 Mencari kode kota untuk: ${namaKota}`);
+  const idKotaArray = await getKodeKota(namaKota);
 
-// 🕌
-// ${ayatData.arab}
+  if (idKotaArray.length === 0) {
+    await chat.sendMessage(
+      `⚠️ Tidak ditemukan kota dengan nama *${namaKota}*.`
+    );
+    return;
+  }
 
-// 🌐
-// ${ayatData.text}
-
-// 🔤
-// *${result.info.surat.relevasi}, ${result.info.surat.ayat_max} ayat*`;
-
-// kirim teks
-//       await sock.sendMessage(from, { text: message });
-
-//       // kirim audio
-//       try {
-//         const controller = new AbortController();
-//         const timeout = setTimeout(() => controller.abort(), 10000); // 10 detik
-//         const res = await fetch(ayatData.audio, { signal: controller.signal });
-//         const buffer = Buffer.from(await res.arrayBuffer());
-
-//         await sock.sendMessage(from, {
-//           audio: buffer,
-//           mimetype: "audio/mpeg",
-//           caption: message,
-//         });
-
-//         clearTimeout(timeout);
-//       } catch (err) {
-//         console.error(`❌ Error fetch audio ayat ${currentAyat}:`, err.message);
-//       }
-//     } else {
-//       console.log(`⚠️ Ayat ${currentAyat} tidak ditemukan`);
-//     }
-//   }
-// }
-
-// module.exports = {
-//   getSholatByLocation,
-//   getKodeKota,
-//   getDoaAcak,
-//   formatDoa,
-//   getSuratAyat,
-// };
+  for (const idKota of idKotaArray) {
+    const replyMsg = await getSholatByLocation(idKota);
+    await chat.sendMessage(replyMsg);
+  }
+}
