@@ -2,10 +2,12 @@
 import { handleJadwalSholat } from "../utils/sholat.js";
 import { handleHasilLari } from "../utils/stravaService.js";
 import { publishMessage } from "../utils/mqttServices.js";
+import { handleLocationMessage } from "../utils/attendance.js";
 
 export default async function groupMessageHandler(client, message) {
   console.log("📢 Pesan dari grup.");
-  const chat = await message.getChat();
+  let chat = await message.getChat();
+
   const text = message.body.toLowerCase();
 
   console.log(`👥 Grup: ${chat.name}`);
@@ -24,5 +26,8 @@ export default async function groupMessageHandler(client, message) {
     }
     console.log(`🔆 Perintah LED: ${msg} ke topic ${topic}`);
     publishMessage(topic, msg);
+  } else if (message.type === "location") {
+    let reply = await handleLocationMessage(message, client);
+    await chat.sendMessage(reply);
   }
 }
