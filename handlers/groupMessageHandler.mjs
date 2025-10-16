@@ -16,9 +16,9 @@ export default async function groupMessageHandler(client, message) {
   } else if (text.toLowerCase() === "hasil club lari") {
     await handleHasilLari(chat, text);
   } else if (text.toLowerCase().startsWith("led:")) {
-    const parts = oriText.split(":");
-    const msg = parts[1]; // keep original case
-    const topic = parts[2]; // keep original case
+    let parts = oriText.split(":");
+    let msg = parts[1]; // keep original case
+    let topic = parts[2]; // keep original case
     if (topic === undefined) {
       topic = "parola/display";
     }
