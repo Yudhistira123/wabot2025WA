@@ -86,7 +86,7 @@ export async function handleHasilLari(chat, text) {
       // Create WhatsApp media object
       const media = new MessageMedia("image/jpeg", base64);
 
-      // Send image with caption
+      // Send image with caption xxxx
 
       await chat.sendMessage(media, undefined, {
         caption: `🏃 *${clubInfo.name}*`,
