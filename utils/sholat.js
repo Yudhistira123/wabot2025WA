@@ -376,3 +376,49 @@ export async function handleJadwalSholat(chat, text) {
     await chat.sendMessage(replyMsg);
   }
 }
+
+export async function handleQuranCommand(text, chat) {
+  const suratAyat = text.toLowerCase().replace("qs:", "").trim();
+
+  if (suratAyat === "all" || suratAyat === "daftar") {
+    const data = await getNoSurat();
+    if (!data) {
+      console.log("⚠️ Data tidak bisa diambil.");
+      return;
+    }
+
+    let reply = "";
+    data.data.forEach((surat, i) => {
+      reply += `${i + 1}. ${surat.name_id}/${surat.revelation_id} (${
+        surat.number_of_verses
+      } ayat)\n`;
+    });
+
+    await chat.sendMessage(reply);
+    return;
+  }
+
+  // Handle QS <nomor>/<ayat> or <nomor>/<range>
+  const parts = suratAyat.split("/");
+  const surat = parseInt(parts[0]);
+  const ayatPart = parts[1];
+
+  let startAyat, banyakAyat;
+
+  if (ayatPart.includes("-")) {
+    // Range ayat, contoh: "5-8"
+    const range = ayatPart.split("-");
+    startAyat = parseInt(range[0]);
+    const endAyat = parseInt(range[1]);
+    banyakAyat = endAyat - startAyat + 1;
+
+    // Batasi maksimal 5 ayat
+    if (banyakAyat > 6) banyakAyat = 5;
+  } else {
+    // Satu ayat
+    startAyat = parseInt(ayatPart);
+    banyakAyat = 1;
+  }
+
+  await sendAyatLoop(surat, startAyat, banyakAyat, chat);
+}

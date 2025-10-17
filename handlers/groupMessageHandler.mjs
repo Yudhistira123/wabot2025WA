@@ -1,9 +1,5 @@
 // handlers/groupMessageHandler.mjs
-import {
-  handleJadwalSholat,
-  sendAyatLoop,
-  getNoSurat,
-} from "../utils/sholat.js";
+import { handleJadwalSholat, handleQuranCommand } from "../utils/sholat.js";
 import { handleHasilLari } from "../utils/stravaService.js";
 import { publishMessage } from "../utils/mqttServices.js";
 import { handleLocationMessage } from "../utils/attendance.js";
@@ -33,47 +29,6 @@ export default async function groupMessageHandler(client, message) {
     let reply = await handleLocationMessage(message, client);
     await chat.sendMessage(reply);
   } else if (text.toLowerCase().startsWith("qs:")) {
-    const suratAyat = text.toLowerCase().replace("qs:", "").trim();
-    if (suratAyat == "all" || suratAyat == "daftar") {
-      const data = await getNoSurat();
-      if (!data) {
-        console.log("⚠️ Data tidak bisa diambil.");
-        return;
-      }
-      let reply = "";
-      data.data.slice(0, data.data.length).forEach((surat, i) => {
-        reply += `${i + 1}. ${surat.name_id}/${surat.revelation_id} (${
-          surat.number_of_verses
-        } ayat)\n`;
-      });
-      await chat.sendMessage(reply);
-    } else {
-      const parts = suratAyat.split("/");
-      const surat = parseInt(parts[0]); // nomor surat
-      const ayatPart = parts[1]; // bisa "5" atau "5-8"
-
-      let startAyat, endAyat, banyakAyat;
-
-      if (ayatPart.includes("-")) {
-        // Range ayat, contoh "5-8" xxx
-        const range = ayatPart.split("-");
-        startAyat = parseInt(range[0]);
-        endAyat = parseInt(range[1]);
-        banyakAyat = endAyat - startAyat + 1;
-        // 🚨 Batasi maksimal 5 ayat
-        if (banyakAyat > 6) {
-          banyakAyat = 5;
-        }
-        console.log({ startAyat, endAyat, banyakAyat });
-      } else {
-        // Hanya 1 ayat, contoh "5"
-        startAyat = parseInt(ayatPart);
-        // endAyat = startAyat;
-        banyakAyat = 1;
-        // endAyat = 1;
-      }
-      await sendAyatLoop(surat, startAyat, banyakAyat, chat);
-    }
-  } else if (text.toLowerCase().startsWith("qsall")) {
+    await handleQuranCommand(chat, text);
   }
 }
