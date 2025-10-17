@@ -54,7 +54,7 @@ export default async function groupMessageHandler(client, message) {
       banyakAyat = 1;
       // endAyat = 1;
     }
-    await sendAyatLoop(surat, startAyat, banyakAyat, chat, from);
+    await sendAyatLoop(surat, startAyat, banyakAyat, chat);
   } else if (text.toLowerCase().startsWith("qsall")) {
     // const data = await getNoSurat();
     // if (!data) {
