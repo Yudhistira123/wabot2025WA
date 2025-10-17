@@ -27,6 +27,6 @@ export default async function groupMessageHandler(client, message) {
     let reply = await handleLocationMessage(message, client);
     await chat.sendMessage(reply);
   } else if (text.toLowerCase().startsWith("qs:")) {
-    await handleQuranCommand(chat, message.body);
+    await handleQuranCommand(oriText, chat);
   }
 }
