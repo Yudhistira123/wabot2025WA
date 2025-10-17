@@ -10,7 +10,7 @@ export default async function groupMessageHandler(client, message) {
   const text = message.body.toLowerCase();
   console.log(`👥 Grup: ${chat.name}`);
   const oriText = message.body;
-  x;
+
   if (text.startsWith("jadwal sholat")) {
     await handleJadwalSholat(chat, text);
   } else if (text.toLowerCase() === "hasil club lari") {
