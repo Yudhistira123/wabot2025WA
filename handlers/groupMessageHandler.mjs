@@ -7,12 +7,10 @@ import { handleLocationMessage } from "../utils/attendance.js";
 export default async function groupMessageHandler(client, message) {
   console.log("📢 Pesan dari grup.");
   let chat = await message.getChat();
-
   const text = message.body.toLowerCase();
-
   console.log(`👥 Grup: ${chat.name}`);
   const oriText = message.body;
-
+  x;
   if (text.startsWith("jadwal sholat")) {
     await handleJadwalSholat(chat, text);
   } else if (text.toLowerCase() === "hasil club lari") {
