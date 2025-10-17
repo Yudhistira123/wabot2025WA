@@ -27,7 +27,7 @@ export function numberToArabic(text) {
   return text.replace(/[0-9]/g, (d) => mapping[d] || d);
 }
 
-export async function sendAyatLoop(surat, startAyat, n, sock, from, chat) {
+export async function sendAyatLoop(surat, startAyat, n, chat, from) {
   let allArabic = "";
   let allTranslation = "";
   let header = "";
