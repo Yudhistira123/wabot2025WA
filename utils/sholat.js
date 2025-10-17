@@ -6,6 +6,9 @@ import fs from "fs";
 import { exec } from "child_process";
 import fetch from "node-fetch";
 
+import pkg from "whatsapp-web.js";
+const { MessageMedia } = pkg;
+
 export function numberToArabic(text) {
   const mapping = {
     0: "٠",
@@ -23,7 +26,7 @@ export function numberToArabic(text) {
   return text.replace(/[0-9]/g, (d) => mapping[d] || d);
 }
 
-export async function sendAyatLoop(surat, startAyat, n, sock, from) {
+export async function sendAyatLoop(surat, startAyat, n, sock, from, chat) {
   let allArabic = "";
   let allTranslation = "";
   let header = "";
@@ -83,7 +86,7 @@ ${footer}
 `;
 
     // kirim teks
-    await sock.sendMessage(from, { text: message });
+    await chat.sendMessage(message);
 
     // gabungkan semua audio jadi satu file
     const listFile = "/tmp/audio_list.txt";
@@ -102,11 +105,26 @@ ${footer}
 
     // kirim audio final
     const buffer = fs.readFileSync(finalAudio);
-    await sock.sendMessage(from, {
-      audio: buffer,
-      mimetype: "audio/mpeg",
-      caption: header,
+
+    //
+
+    // Convert your audio buffer to base64 if needed
+    const base64Audio = buffer.toString("base64");
+
+    // Create a MessageMedia object
+    const media = new MessageMedia("audio/mpeg", base64Audio, "voice.mp3");
+
+    // Send the audio with a caption
+    await chat.sendMessage(media, {
+      caption: header, // e.g. 🏃 *${clubInfo.name}*
     });
+
+    //
+    // await sock.sendMessage(from, {
+    //   audio: buffer,
+    //   mimetype: "audio/mpeg",
+    //   caption: header,
+    // });
   }
 }
 
