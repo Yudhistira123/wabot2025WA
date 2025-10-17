@@ -1,5 +1,5 @@
 // handlers/groupMessageHandler.mjs
-import { handleJadwalSholat } from "../utils/sholat.js";
+import { handleJadwalSholat, sendAyatLoop } from "../utils/sholat.js";
 import { handleHasilLari } from "../utils/stravaService.js";
 import { publishMessage } from "../utils/mqttServices.js";
 import { handleLocationMessage } from "../utils/attendance.js";
