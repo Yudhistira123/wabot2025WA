@@ -37,7 +37,7 @@ export default async function groupMessageHandler(client, message) {
     let startAyat, endAyat, banyakAyat;
 
     if (ayatPart.includes("-")) {
-      // Range ayat, contoh "5-8"
+      // Range ayat, contoh "5-8" xxx
       const range = ayatPart.split("-");
       startAyat = parseInt(range[0]);
       endAyat = parseInt(range[1]);

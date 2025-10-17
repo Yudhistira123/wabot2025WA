@@ -8,6 +8,7 @@ import fetch from "node-fetch";
 
 import pkg from "whatsapp-web.js";
 const { MessageMedia } = pkg;
+//
 
 export function numberToArabic(text) {
   const mapping = {
