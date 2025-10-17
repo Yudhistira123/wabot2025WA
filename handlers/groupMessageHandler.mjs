@@ -34,7 +34,7 @@ export default async function groupMessageHandler(client, message) {
     await chat.sendMessage(reply);
   } else if (text.toLowerCase().startsWith("qs:")) {
     const suratAyat = text.toLowerCase().replace("qs:", "").trim();
-    if (suratAyat.equals("all")) {
+    if (suratAyat == "all" || suratAyat == "daftar") {
       const data = await getNoSurat();
       if (!data) {
         console.log("⚠️ Data tidak bisa diambil.");
