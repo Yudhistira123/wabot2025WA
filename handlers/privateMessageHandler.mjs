@@ -44,9 +44,9 @@ export default async function privateMessageHandler(client, message) {
       // Create WhatsApp media object
       const media = new MessageMedia("image/jpeg", buffer);
 
-      await chat.sendMessage(media, undefined, {
-        caption: `🏃 *${clubInfo.name}*`,
-      });
+      // await chat.sendMessage(media, undefined, {
+      //   caption: `🏃 *${clubInfo.name}*`,
+      // });
 
       await chat.sendMessage(image, undefined, {
         caption: `🧾 Data pasien ${noPasien}
