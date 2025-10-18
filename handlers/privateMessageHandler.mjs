@@ -40,11 +40,9 @@ export default async function privateMessageHandler(client, message) {
 ⚠️ Alergi: ${alergi}`;
 
       console.log("Data fetched successfully for noPasien:", reply);
-
-      // 🔹 Clean base64 if it has prefix
       base64String = base64String.replace(/^data:image\/\w+;base64,/, "");
       const media = new MessageMedia("image/jpeg", base64String);
-      await chat.sendMessage(media, undefined, {
+      await chat.sendMessage(media, {
         caption: reply,
       });
     } catch (error) {
