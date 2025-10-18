@@ -20,7 +20,7 @@ export default async function privateMessageHandler(client, message) {
     try {
       const noPasien = text.split(" ")[1].trim();
       // 🔹 Call your webservice
-      let url = `https://drharryhuiz.my.id//find_ImagePasienWG.php?kode=${noPasien}`;
+      let url = `https://drharryhuiz.my.id/find_ImagePasienWG.php?kode=${noPasien}`;
       console.log("Fetching data from URL:", url);
       const response = await axios.get(url);
       let base64String = response.data.gambar;
@@ -59,9 +59,7 @@ export default async function privateMessageHandler(client, message) {
       });
     } catch (error) {
       console.error("Error calling API:", error.message);
-      await sock.sendMessage(from, {
-        text: "❌ Failed to fetch data from API",
-      });
+      await chat.sendMessage("❌ Failed to fetch data from API");
     }
   } else {
     console.log("🤖 Pesan tidak cocok dengan perintah bawaan.");
