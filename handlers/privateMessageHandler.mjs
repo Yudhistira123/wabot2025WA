@@ -48,7 +48,7 @@ export default async function privateMessageHandler(client, message) {
       //   caption: `🏃 *${clubInfo.name}*`,
       // });
 
-      await chat.sendMessage(image, undefined, {
+      await chat.sendMessage(media, undefined, {
         caption: `🧾 Data pasien ${noPasien}
 👤 Nama: ${nama}
 🚻 JK: ${jekel}
