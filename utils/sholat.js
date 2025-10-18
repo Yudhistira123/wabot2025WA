@@ -401,7 +401,7 @@ export async function handleQuranCommand(text, chat) {
     const tesxdoa = formatDoa(doa);
     await chat.sendMessage(tesxdoa);
     return;
-  } else if (suratAyat.split("/") != "") {
+  } else if (ayatPart.includes("/")) {
     // Handle QS <nomor>/<ayat> or <nomor>/<range>
     const parts = suratAyat.split("/");
     const surat = parseInt(parts[0]);
