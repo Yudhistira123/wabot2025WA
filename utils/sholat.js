@@ -396,36 +396,39 @@ export async function handleQuranCommand(text, chat) {
 
     await chat.sendMessage(reply);
     return;
-  }
-
-  if (suratAyat === "doa" || suratAyat === "dua") {
+  } else if (suratAyat === "doa" || suratAyat === "dua") {
     const doa = await getDoaAcak();
     const tesxdoa = formatDoa(doa);
     await chat.sendMessage(tesxdoa);
     return;
-  }
+  } else if (suratAyat.split("/") != "") {
+    // Handle QS <nomor>/<ayat> or <nomor>/<range>
+    const parts = suratAyat.split("/");
+    const surat = parseInt(parts[0]);
+    const ayatPart = parts[1];
 
-  // Handle QS <nomor>/<ayat> or <nomor>/<range>
-  const parts = suratAyat.split("/");
-  const surat = parseInt(parts[0]);
-  const ayatPart = parts[1];
+    let startAyat, banyakAyat;
 
-  let startAyat, banyakAyat;
+    if (ayatPart.includes("-")) {
+      // Range ayat, contoh: "5-8"
+      const range = ayatPart.split("-");
+      startAyat = parseInt(range[0]);
+      const endAyat = parseInt(range[1]);
+      banyakAyat = endAyat - startAyat + 1;
 
-  if (ayatPart.includes("-")) {
-    // Range ayat, contoh: "5-8"
-    const range = ayatPart.split("-");
-    startAyat = parseInt(range[0]);
-    const endAyat = parseInt(range[1]);
-    banyakAyat = endAyat - startAyat + 1;
+      // Batasi maksimal 5 ayat
+      if (banyakAyat > 6) banyakAyat = 5;
+    } else {
+      // Satu ayat
+      startAyat = parseInt(ayatPart);
+      banyakAyat = 1;
+    }
 
-    // Batasi maksimal 5 ayat
-    if (banyakAyat > 6) banyakAyat = 5;
+    await sendAyatLoop(surat, startAyat, banyakAyat, chat);
   } else {
-    // Satu ayat
-    startAyat = parseInt(ayatPart);
-    banyakAyat = 1;
+    await chat.sendMessage(
+      "⚠️ Format salah. Gunakan QS: <nomor>/<ayat> atau QS <nomor>/<range>."
+    );
+    return;
   }
-
-  await sendAyatLoop(surat, startAyat, banyakAyat, chat);
 }
