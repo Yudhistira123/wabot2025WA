@@ -31,6 +31,8 @@ export default async function privateMessageHandler(client, message) {
       let tlp = response.data.tlp;
       let alergi = response.data.alergi;
 
+      console.log("Data fetched successfully for noPasien:", nama);
+
       // 🔹 Clean base64 if it has prefix
       base64String = base64String.replace(/^data:image\/\w+;base64,/, "");
       const media = new MessageMedia("image/jpeg", base64String);
