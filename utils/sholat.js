@@ -398,6 +398,13 @@ export async function handleQuranCommand(text, chat) {
     return;
   }
 
+  if (suratAyat === "doa" || suratAyat === "dua") {
+    const doa = await getDoaAcak();
+    const tesxdoa = formatDoa(doa);
+    await chat.sendMessage(tesxdoa);
+    return;
+  }
+
   // Handle QS <nomor>/<ayat> or <nomor>/<range>
   const parts = suratAyat.split("/");
   const surat = parseInt(parts[0]);
