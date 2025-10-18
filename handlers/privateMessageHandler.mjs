@@ -39,7 +39,7 @@ export default async function privateMessageHandler(client, message) {
 🎂 Tgl Lahir: ${dlahir}
 ⚠️ Alergi: ${alergi}`;
 
-      console.log("Data fetched successfully for noPasien:", reply);
+      //  console.log("Data fetched successfully for noPasien:", reply);
       base64String = base64String.replace(/^data:image\/\w+;base64,/, "");
       const media = new MessageMedia("image/jpeg", base64String);
       await chat.sendMessage(media, {
