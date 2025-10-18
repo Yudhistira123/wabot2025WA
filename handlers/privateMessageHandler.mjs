@@ -31,19 +31,21 @@ export default async function privateMessageHandler(client, message) {
       let tlp = response.data.tlp;
       let alergi = response.data.alergi;
 
-      console.log("Data fetched successfully for noPasien:", nama);
-
-      // 🔹 Clean base64 if it has prefix
-      base64String = base64String.replace(/^data:image\/\w+;base64,/, "");
-      const media = new MessageMedia("image/jpeg", base64String);
-      await chat.sendMessage(media, undefined, {
-        caption: `🧾 Data pasien ${noPasien}
+      let reply = `🧾 Data pasien ${noPasien}
 👤 Nama: ${nama}
 🚻 JK: ${jekel}
 🏠 Alamat: ${alamat}
 📞 Tlp: ${tlp}
 🎂 Tgl Lahir: ${dlahir}
-⚠️ Alergi: ${alergi}`,
+⚠️ Alergi: ${alergi}`;
+
+      console.log("Data fetched successfully for noPasien:", reply);
+
+      // 🔹 Clean base64 if it has prefix
+      base64String = base64String.replace(/^data:image\/\w+;base64,/, "");
+      const media = new MessageMedia("image/jpeg", base64String);
+      await chat.sendMessage(media, undefined, {
+        caption: reply,
       });
     } catch (error) {
       console.error("Error calling API:", error.message);
