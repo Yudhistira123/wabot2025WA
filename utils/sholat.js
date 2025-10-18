@@ -427,7 +427,7 @@ export async function handleQuranCommand(text, chat) {
     await sendAyatLoop(surat, startAyat, banyakAyat, chat);
   } else {
     await chat.sendMessage(
-      "⚠️ Format salah. Gunakan QS: <nomor>/<ayat> atau QS <nomor>/<range>."
+      "⚠️ Format salah. Gunakan QS: <nomor>/<ayat> atau QS:all atau QS:doa "
     );
     return;
   }
