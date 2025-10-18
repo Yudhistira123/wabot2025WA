@@ -33,21 +33,7 @@ export default async function privateMessageHandler(client, message) {
 
       // 🔹 Clean base64 if it has prefix
       base64String = base64String.replace(/^data:image\/\w+;base64,/, "");
-
-      const buffer = Buffer.from(base64String, "base64");
-
-      //  const buffer = Buffer.from(await res.arrayBuffer());
-
-      // Convert to base64
-      //  const base64 = Buffer.from(buffer).toString("base64");
-
-      // Create WhatsApp media object
-      const media = new MessageMedia("image/jpeg", buffer);
-
-      // await chat.sendMessage(media, undefined, {
-      //   caption: `🏃 *${clubInfo.name}*`,
-      // });
-
+      const media = new MessageMedia("image/jpeg", base64String);
       await chat.sendMessage(media, undefined, {
         caption: `🧾 Data pasien ${noPasien}
 👤 Nama: ${nama}
