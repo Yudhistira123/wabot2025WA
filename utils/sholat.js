@@ -198,10 +198,24 @@ export async function getSholatByLocation(kodeLokasi) {
     console.log("Hijri Date:", hijriString);
 
     //  `🗓️ ${jadwal.tanggal} \n\n` +
+    // let replyMsg =
+    //   `🕌 *Jadwal Sholat ${sholatData.data.lokasi}*\n` +
+    //   `🗓️ ${jadwal.tanggal} \n` +
+    //   `      ${hijriString}H \n\n` +
+    //   `🌅 Imsak     : ${jadwal.imsak} WIB\n` +
+    //   `🌄 Subuh     : ${jadwal.subuh} WIB\n` +
+    //   `🌤️ Terbit    : ${jadwal.terbit} WIB\n` +
+    //   `🌞 Dhuha     : ${jadwal.dhuha} WIB\n` +
+    //   `☀️ Dzuhur    : ${jadwal.dzuhur} WIB\n` +
+    //   `🌇 Ashar     : ${jadwal.ashar} WIB\n` +
+    //   `🌆 Maghrib   : ${jadwal.maghrib} WIB\n` +
+    //   `🌙 Isya    : ${jadwal.isya} WIB`;
+
     let replyMsg =
-      `🕌 *Jadwal Sholat ${sholatData.data.lokasi}*\n` +
-      `🗓️ ${jadwal.tanggal} \n` +
-      `      ${hijriString}H \n\n` +
+      `🕌 *Jadwal Sholat ${sholatData.data.lokasi.toUpperCase()}*\n` +
+      `🗓️ ${jadwal.tanggal}\n` +
+      `📅 ${hijriString}H\n\n` +
+      "```" + // start monospace block
       `🌅 Imsak     : ${jadwal.imsak} WIB\n` +
       `🌄 Subuh     : ${jadwal.subuh} WIB\n` +
       `🌤️ Terbit    : ${jadwal.terbit} WIB\n` +
@@ -209,7 +223,9 @@ export async function getSholatByLocation(kodeLokasi) {
       `☀️ Dzuhur    : ${jadwal.dzuhur} WIB\n` +
       `🌇 Ashar     : ${jadwal.ashar} WIB\n` +
       `🌆 Maghrib   : ${jadwal.maghrib} WIB\n` +
-      `🌙 Isya    : ${jadwal.isya} WIB`;
+      `🌙 Isya      : ${jadwal.isya} WIB` +
+      "```"; // end monospace block
+
     //======
 
     // console.log(res.data);
