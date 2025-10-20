@@ -170,7 +170,7 @@ export async function handleLocationMessage(msg, sock) {
   );
   let header = `📍 ${latitude}, ${longitude} (${
     description || "tanpa deskripsi"
-  }\n*${senderTime}*)`;
+  }\n*${senderTime}*`;
 
   description + `Lat: ${latitude}, Lon: ${longitude} pada ${senderTime}`;
   const apiKey = "44747099862079d031d937f5cd84a57e"; // <- pakai key kamu
