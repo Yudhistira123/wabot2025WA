@@ -168,7 +168,8 @@ export async function handleLocationMessage(msg, sock) {
       description || "tanpa deskripsi"
     } pada ${senderTime})`
   );
-
+  description +=
+    description + `Lat: ${latitude}, Lon: ${longitude} pada ${senderTime}`;
   const apiKey = "44747099862079d031d937f5cd84a57e"; // <- pakai key kamu
   const data = await getAirQuality(latitude, longitude, apiKey);
   const replyMsg1 = formatAirQuality(description, data);
