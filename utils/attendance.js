@@ -168,11 +168,14 @@ export async function handleLocationMessage(msg, sock) {
       description || "tanpa deskripsi"
     } pada ${senderTime})`
   );
-  description =
-    description + `Lat: ${latitude}, Lon: ${longitude} pada ${senderTime}`;
+  let header = `📍 Lokasi diterima: ${latitude}, ${longitude} (${
+    description || "tanpa deskripsi"
+  } pada ${senderTime})`;
+
+  description + `Lat: ${latitude}, Lon: ${longitude} pada ${senderTime}`;
   const apiKey = "44747099862079d031d937f5cd84a57e"; // <- pakai key kamu
   const data = await getAirQuality(latitude, longitude, apiKey);
-  const replyMsg1 = formatAirQuality(description, data);
+  const replyMsg1 = formatAirQuality(header, data);
   const weather = await getWeather(latitude, longitude, apiKey);
   const replyMsg2 = await formatWeather(weather);
   //POI
