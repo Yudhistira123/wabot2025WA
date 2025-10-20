@@ -168,9 +168,9 @@ export async function handleLocationMessage(msg, sock) {
       description || "tanpa deskripsi"
     } pada ${senderTime})`
   );
-  let header = `📍 Lokasi diterima: ${latitude}, ${longitude} (${
+  let header = `📍 ${latitude}, ${longitude} (${
     description || "tanpa deskripsi"
-  }\n pada ${senderTime})`;
+  }\n*${senderTime}*)`;
 
   description + `Lat: ${latitude}, Lon: ${longitude} pada ${senderTime}`;
   const apiKey = "44747099862079d031d937f5cd84a57e"; // <- pakai key kamu
