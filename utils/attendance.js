@@ -1,6 +1,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
+import geoTz from "geo-tz";
 
 import {
   getAirQuality,
@@ -161,16 +162,40 @@ export async function handleLocationMessage(msg, sock) {
   //     )} m (terlalu jauh)`;
   //   }
   // } else {
-  const senderTime = new Date(msg.timestamp * 1000).toLocaleString("id-ID");
+  // const senderTime = new Date(msg.timestamp * 1000).toLocaleString("id-ID");
 
-  console.log(
-    `📍 Lokasi diterima: ${latitude}, ${longitude} (${
-      description || "tanpa deskripsi"
-    } pada ${senderTime})`
-  );
-  let header = `📍 ${latitude}, ${longitude} (${
-    description || "tanpa deskripsi"
-  }\n*${senderTime}*`;
+  // cari timezone berdasarkan koordinat
+  const timezones = geoTz.find(latitude, longitude); // hasil array
+  const timezone = timezones[0] || "UTC";
+
+  // timestamp pesan (dalam detik) → konversi ke ms
+  const timestampMs = msg.timestamp * 1000;
+
+  // format ke waktu lokal
+  const localTime = new Intl.DateTimeFormat("id-ID", {
+    timeZone: timezone,
+    dateStyle: "full",
+    timeStyle: "medium",
+  }).format(new Date(timestampMs));
+
+  // kirim balasan ke pengirim
+  let header =
+    `📍 *Lokasi diterima*\n` +
+    `Latitude: ${latitude}\n` +
+    `Longitude: ${longitude}\n` +
+    (description ? `📌 Deskripsi: ${description}\n` : "") +
+    `🕒 Waktu lokal pengirim: ${localTime}\n` +
+    `🌐 Zona waktu: ${timezone}`;
+  // }
+
+  // console.log(
+  //   `📍 Lokasi diterima: ${latitude}, ${longitude} (${
+  //     description || "tanpa deskripsi"
+  //   } pada ${senderTime})`
+  // );
+  // let header = `📍 ${latitude}, ${longitude} (${
+  //   description || "tanpa deskripsi"
+  // }\n*${senderTime}*`;
 
   description + `Lat: ${latitude}, Lon: ${longitude} pada ${senderTime}`;
   const apiKey = "44747099862079d031d937f5cd84a57e"; // <- pakai key kamu
