@@ -180,10 +180,8 @@ export async function handleLocationMessage(msg, sock) {
 
   // kirim balasan ke pengirim
   let header =
-    `📍 *Lokasi diterima*\n` +
-    `Latitude: ${latitude}\n` +
-    `Longitude: ${longitude}\n` +
-    (description ? `📌 Deskripsi: ${description}\n` : "") +
+    `📍 ${latitude}, ${longitude}\n` +
+    `📌 Deskripsi: ${description}\n` +
     `🕒 Waktu lokal pengirim: ${localTime}\n` +
     `🌐 Zona waktu: ${timezone}`;
   // }
