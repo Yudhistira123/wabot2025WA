@@ -29,7 +29,7 @@ function formatAirQuality(description, data) {
   const aqi = data.list[0].main.aqi;
   const comp = data.list[0].components;
   return (
-    `📍 Lokasi: ${description}\n\n` +
+    `${description}\n\n` +
     `🌍 *Air Quality Info*\n` +
     `🌫️ AQI: ${aqi} → ${interpretAQI(aqi)}\n` +
     `💨 Komponen:\n` +
