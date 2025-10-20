@@ -161,10 +161,12 @@ export async function handleLocationMessage(msg, sock) {
   //     )} m (terlalu jauh)`;
   //   }
   // } else {
+  const senderTime = new Date(msg.timestamp * 1000).toLocaleString("id-ID");
+
   console.log(
     `📍 Lokasi diterima: ${latitude}, ${longitude} (${
       description || "tanpa deskripsi"
-    })`
+    } pada ${senderTime})`
   );
 
   const apiKey = "44747099862079d031d937f5cd84a57e"; // <- pakai key kamu
