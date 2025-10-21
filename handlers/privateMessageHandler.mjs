@@ -75,9 +75,9 @@ export default async function privateMessageHandler(client, message) {
       let index = 1;
       response.data.data.forEach((item) => {
         msg +=
-          "(" +
-          item.c_kode +
-          ")\n" +
+          "*" +
+          item.n_title +
+          "*\n\n" +
           item.n_desc.trim().replace(/\n/g, " ") +
           "*\n\n";
         index++;
