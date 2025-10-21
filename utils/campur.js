@@ -4,7 +4,7 @@ const { MessageMedia } = pkg;
 // ====================
 // 🔹 Fungsi untuk ambil data pasien
 // ====================
-async function handleAmbilPasien(chat, text) {
+export async function handleAmbilPasien(chat, text) {
   try {
     const noPasien = text.split(" ")[1]?.trim();
     if (!noPasien) {
@@ -37,7 +37,7 @@ async function handleAmbilPasien(chat, text) {
 // ====================
 // 🔹 Fungsi untuk ambil data rudal (rn:)
 // ====================
-async function handleRudal(chat, text) {
+export async function handleRudal(chat, text) {
   const indikator = text.toLowerCase().replace("rn:", "").trim();
   console.log(`🔍 Mencari data rudal untuk: ${indikator}`);
 
