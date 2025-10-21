@@ -136,7 +136,7 @@ export async function handleLocationMessage(msg, sock) {
   // === FITUR 2: INFO LINGKUNGAN ===
   //const loc = msg.message.locationMessage;
   // const nama = msg.pushName;
-  //const { latitude, longitude, description } = msg.location; // ✅ lowercase 'location'
+  const { latitude, longitude, description } = msg.location; // ✅ lowercase 'location'
   // const loc = msg.location;
   // const latitude = loc.degreesLatitude;
   // const longitude = loc.degreesLongitude;
