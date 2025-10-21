@@ -21,12 +21,12 @@ export async function getWeather(lat, lon, apiKey) {
 // Fungsi format output cuasca
 export async function formatWeather(weather) {
   const elevation = await getElevation(weather.coord.lat, weather.coord.lon);
-  let Sunrise = getLocalTimeFromMessage(
+  let Sunrise = await getLocalTimeFromMessage(
     weather.coord.lat,
     weather.coord.lon,
     weather.sys.sunrise * 1000
   );
-  let Sunset = getLocalTimeFromMessage(
+  let Sunset = await getLocalTimeFromMessage(
     weather.coord.lat,
     weather.coord.lon,
     weather.sys.sunset * 1000
