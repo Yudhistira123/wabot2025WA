@@ -174,6 +174,7 @@ export async function handleLocationMessage(msg, sock) {
   // }).format(new Date(timestampMs));
   const timestampMs = msg.timestamp * 1000; // detik → ms
   let localTime = getLocalTimeFromMessage(latitude, longitude, timestampMs);
+  console.log({ localTime });
 
   // kirim balasan ke pengirim
   let header =
