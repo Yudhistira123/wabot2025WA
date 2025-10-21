@@ -219,7 +219,7 @@ export async function getLocalTimeFromMessage(
   // const timezone = timezones[0] || "UTC";
 
   // timestamp pesan (dalam detik) → konversi ke ms
-  const timestampMs = msg.timestamp * 1000;
+  //const timestampMs = msg.timestamp * 1000;
   const timezones = geoTz.find(latitude, longitude); // hasil array
   const timezone = timezones[0] || "UTC";
 
