@@ -215,22 +215,15 @@ export async function getLocalTimeFromMessage(
   longitude,
   timestampMs
 ) {
-  //const { latitude, longitude, description } = msg.location;
-  // const timezones = geoTz.find(latitude, longitude); // hasil array
-  // const timezone = timezones[0] || "UTC";
-
-  // timestamp pesan (dalam detik) → konversi ke ms
-  //const timestampMs = msg.timestamp * 1000;
+  let hasil = "";
   const timezones = geoTz.find(latitude, longitude); // hasil array
   const timezone = timezones[0] || "UTC";
-
-  //const timestampMs = msg.timestamp * 1000; // detik → ms
 
   const localTime = new Intl.DateTimeFormat("id-ID", {
     timeZone: timezone,
     dateStyle: "full",
     timeStyle: "medium",
   }).format(new Date(timestampMs));
-
-  return `${localTime} (${timezone})`;
+  hasil = `${localTime} (${timezone})`;
+  return hasil;
 }
