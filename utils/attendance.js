@@ -136,7 +136,7 @@ export async function handleLocationMessage(msg, sock) {
   // === FITUR 2: INFO LINGKUNGAN ===
   //const loc = msg.message.locationMessage;
   // const nama = msg.pushName;
-  const { latitude, longitude, description } = msg.location; // ✅ lowercase 'location'
+  //const { latitude, longitude, description } = msg.location; // ✅ lowercase 'location'
   // const loc = msg.location;
   // const latitude = loc.degreesLatitude;
   // const longitude = loc.degreesLongitude;
@@ -165,25 +165,21 @@ export async function handleLocationMessage(msg, sock) {
   // const senderTime = new Date(msg.timestamp * 1000).toLocaleString("id-ID");
 
   // cari timezone berdasarkan koordinat
-  const timezones = geoTz.find(latitude, longitude); // hasil array
-  const timezone = timezones[0] || "UTC";
-
-  // timestamp pesan (dalam detik) → konversi ke ms
-  const timestampMs = msg.timestamp * 1000;
 
   // format ke waktu lokal
-  const localTime = new Intl.DateTimeFormat("id-ID", {
-    timeZone: timezone,
-    dateStyle: "full",
-    timeStyle: "medium",
-  }).format(new Date(timestampMs));
+  // const localTime = new Intl.DateTimeFormat("id-ID", {
+  //   timeZone: timezone,
+  //   dateStyle: "full",
+  //   timeStyle: "medium",
+  // }).format(new Date(timestampMs));
+  const timestampMs = msg.timestamp * 1000; // detik → ms
+  let localTime = getLocalTimeFromMessage(latitude, longitude, timestampMs);
 
   // kirim balasan ke pengirim
   let header =
     `📍 ${latitude}, ${longitude}\n` +
     `📌 Deskripsi: ${description}\n` +
-    `🕒 Waktu lokal pengirim: ${localTime}\n` +
-    `🌐 Zona waktu: ${timezone}`;
+    `🕒 Waktu lokal pengirim: ${localTime}\n`;
   // }
 
   // console.log(
@@ -211,4 +207,29 @@ export async function handleLocationMessage(msg, sock) {
     replyMsg3 += `${i + 1}. ${p.name}-${p.distance_km} km\n${mapsLink}\n\n`;
   });
   return replyMsg1 + "\n\n" + replyMsg2 + "\n\n" + replyMsg3;
+}
+
+export async function getLocalTimeFromMessage(
+  latitude,
+  longitude,
+  timestampMs
+) {
+  //const { latitude, longitude, description } = msg.location;
+  // const timezones = geoTz.find(latitude, longitude); // hasil array
+  // const timezone = timezones[0] || "UTC";
+
+  // timestamp pesan (dalam detik) → konversi ke ms
+  const timestampMs = msg.timestamp * 1000;
+  const timezones = geoTz.find(latitude, longitude); // hasil array
+  const timezone = timezones[0] || "UTC";
+
+  //const timestampMs = msg.timestamp * 1000; // detik → ms
+
+  const localTime = new Intl.DateTimeFormat("id-ID", {
+    timeZone: timezone,
+    dateStyle: "full",
+    timeStyle: "medium",
+  }).format(new Date(timestampMs));
+
+  return `${localTime} (${timezone})`;
 }

@@ -1,6 +1,7 @@
 //const axios = require("axios");
 import axios from "axios";
 import { getElevation } from "./googleApi.js";
+import { getLocalTimeFromMessage } from "./attendance.js";
 
 //const apiKey = "44747099862079d031d937f5cd84a57e"; // API Key OWM
 
@@ -20,6 +21,17 @@ export async function getWeather(lat, lon, apiKey) {
 // Fungsi format output cuasca
 export async function formatWeather(weather) {
   const elevation = await getElevation(weather.coord.lat, weather.coord.lon);
+  let Sunrise = getLocalTimeFromMessage(
+    weather.coord.lat,
+    weather.coord.lon,
+    weather.sys.sunrise * 1000
+  );
+  let Sunset = getLocalTimeFromMessage(
+    weather.coord.lat,
+    weather.coord.lon,
+    weather.sys.sunset * 1000
+  );
+
   return (
     `🌍 *Informasi Cuaca Lengkap*\n` +
     `🌤️ Cuaca: ${weather.weather[0].main} - ${weather.weather[0].description}\n` +
@@ -41,12 +53,8 @@ export async function formatWeather(weather) {
       weather.wind.gust ?? "-"
     } m/s\n` +
     `☁️ Awan: ${weather.clouds.all}%\n` +
-    `🌅 Sunrise: ${new Date(weather.sys.sunrise * 1000).toLocaleTimeString(
-      "id-ID"
-    )}\n` +
-    `🌇 Sunset: ${new Date(weather.sys.sunset * 1000).toLocaleTimeString(
-      "id-ID"
-    )}\n` +
+    `🌅 Sunrise: ${Sunrise}\n` +
+    `🌇 Sunset: ${Sunset}\n` +
     `🕒 Zona Waktu: UTC${weather.timezone / 3600}\n` +
     `🆔 City ID: ${weather.id},${weather.name}\n` +
     `📡 Source: ${weather.base}\n` +
