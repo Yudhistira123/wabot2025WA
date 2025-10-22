@@ -63,8 +63,11 @@ export async function sendMessages(client, topic, message) {
   //   }
   // }
 
-  const payload = JSON.parse(message.toString()); // parse MQTT message
-  const text = `Nama: ${payload.name}
+  // Assuming `message` is Buffer from MQTT
+  const payload = JSON.parse(message.toString());
+
+  const text = `📌 Update Alat
+Nama: ${payload.name}
 No HP: ${payload.no_hp}
 Alat: ${payload.nama_alat}
 Status: ${payload.status}
@@ -75,9 +78,9 @@ Tanggal: ${payload.tanggal}`;
   for (const jid of jids) {
     try {
       await client.sendMessage(jid, { text });
-      console.log(`✅ Sent to ${jid}: ${text}`);
+      console.log(`✅ Sent to ${jid}`);
     } catch (err) {
-      console.error(`❌ Failed to send to:`, err);
+      console.error(`❌ Failed to send to ${jid}:`, err);
     }
   }
 }
