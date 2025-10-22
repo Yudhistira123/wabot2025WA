@@ -1,7 +1,7 @@
 import mqtt from "mqtt";
 
 const mqttBroker = "mqtt://103.27.206.14:1883";
-const mqttTopics = ["R1.JC.05", "R1.JC.06"];
+const mqttTopics = ["R1.JC.05", "R1.JC.06", "test/php"];
 
 let mqttClient; // keep global ref so we can publish outside init
 

@@ -59,6 +59,7 @@ export async function getClubActivities(CLUB_ID) {
         params: { per_page: 20 }, // ambil 5 aktivitas terbaru
       }
     );
+    console.log("📊 Club Activities:", JSON.stringify(res.data, null, 2));
     return res.data;
   } catch (err) {
     console.error("❌ Error getClubActivities:", err.message);
