@@ -72,6 +72,7 @@ No HP: ${payload.no_hp}
 Alat: ${payload.nama_alat}
 Status: ${payload.status}
 Tanggal: ${payload.tanggal}`;
+  console.log("Generated message:", text);
 
   const jids = ["628122132341@c.us"];
 
