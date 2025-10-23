@@ -68,9 +68,9 @@ export async function sendMessages(client, topic, message) {
 
   let text =
     `📌 *Update Alat*\n` +
-    `📅 ${payload.tanggal}\n\n` + // optional date line
+    `📅 ${payload.tanggal}\n\n` + // optional date linexz
     "```" + // start monospace block
-    `👤 Nama    x: ${payload.name}\n` +
+    `👤 Nama    : ${payload.name}\n` +
     `📞 No HP   : ${payload.no_hp}\n` +
     `🔧 Alat    : ${payload.nama_alat}\n` +
     `⚙️ Status  : ${payload.status}\n` +
