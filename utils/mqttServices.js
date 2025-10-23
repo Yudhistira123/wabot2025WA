@@ -74,7 +74,7 @@ Status: ${payload.status}
 Tanggal: ${payload.tanggal}`;
   console.log("Generated message:", text);
 
-  text = "hello world";
+  //text = "hello world";
   const jids = ["628122132341@c.us"];
 
   for (const jid of jids) {
