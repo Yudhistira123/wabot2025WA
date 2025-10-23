@@ -66,15 +66,17 @@ export async function sendMessages(client, topic, message) {
   // Assuming `message` is Buffer from MQTT
   const payload = JSON.parse(message.toString());
 
+  const [date, time] = payload.tanggal.split("T");
+
   let text =
     `📌 *Update Alat*\n` +
-    `📅 ${payload.tanggal}\n\n` + // optional date linexz
+    `📅 ${date} ⏰ ${time}\n\n` + // show date and time separately
     "```" + // start monospace block
     `👤 Nama    : ${payload.name}\n` +
     `📞 No HP   : ${payload.no_hp}\n` +
     `🔧 Alat    : ${payload.nama_alat}\n` +
     `⚙️ Status  : ${payload.status}\n` +
-    `🗓️ Tanggal : ${payload.tanggal}` +
+    `🗓️ Tanggal : ${date} ⏰ ${time}` +
     "```"; // end monospace block
 
   console.log("Generated message:", text);
