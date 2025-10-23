@@ -66,7 +66,7 @@ export async function sendMessages(client, topic, message) {
   // Assuming `message` is Buffer from MQTT
   const payload = JSON.parse(message.toString());
 
-  const text = `📌 Update Alat
+  let text = `📌 Update Alat
 Nama: ${payload.name}
 No HP: ${payload.no_hp}
 Alat: ${payload.nama_alat}
@@ -74,6 +74,7 @@ Status: ${payload.status}
 Tanggal: ${payload.tanggal}`;
   console.log("Generated message:", text);
 
+  text = "hello world";
   const jids = ["628122132341@c.us"];
 
   for (const jid of jids) {
