@@ -79,7 +79,7 @@ Tanggal: ${payload.tanggal}`;
 
   for (const jid of jids) {
     try {
-      await client.sendMessage(jid, { text });
+      await client.sendMessage(jid, text);
       console.log(`✅ Sent to ${jid}`);
     } catch (err) {
       console.error(`❌ Failed to send to ${jid}:`, err);
