@@ -70,11 +70,11 @@ export async function sendMessages(client, topic, message) {
     `📌 *Update Alat*\n` +
     `📅 ${payload.tanggal}\n\n` + // optional date line
     "```" + // start monospace block
-    `👤 Nama       : ${payload.name}\n` +
-    `📞 No HP      : ${payload.no_hp}\n` +
-    `🔧 Alat       : ${payload.nama_alat}\n` +
-    `⚙️ Status     : ${payload.status}\n` +
-    `🗓️ Tanggal    : ${payload.tanggal}` +
+    `👤 Nama    x: ${payload.name}\n` +
+    `📞 No HP   : ${payload.no_hp}\n` +
+    `🔧 Alat    : ${payload.nama_alat}\n` +
+    `⚙️ Status  : ${payload.status}\n` +
+    `🗓️ Tanggal : ${payload.tanggal}` +
     "```"; // end monospace block
 
   console.log("Generated message:", text);
