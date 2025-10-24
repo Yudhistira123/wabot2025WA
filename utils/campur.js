@@ -67,9 +67,9 @@ export async function handleRudal(chat, text) {
 
           const c_kode = item.c_kode.trim();
           const code = c_kode.substring(2, c_kode.length - 4);
-          const imageUrl = `https://drharryhuiz.my.id/rn01/images/${code}.jpg`;
+          let imageUrl = `https://drharryhuiz.my.id/rn01/images/${code}.jpg`;
 
-          const res = await fetch(imageUrl);
+          let res = await fetch(imageUrl);
           // If image not found (404 or other)
           if (!res.ok) {
             console.warn(
