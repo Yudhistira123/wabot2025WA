@@ -55,6 +55,7 @@ export async function handleRudal(chat, text) {
         msg += `${index}. (${item.kode_prefix}) ${item.n_judul}\n`;
         index++;
       });
+      await chat.sendMessage(msg || "⚠️ Tidak ada data ditemukan.");
     } else if (indikator.includes("td")) {
       url = `https://drharryhuiz.my.id/rn01/getTDRudalByKode.php?c_kode=${indikator}`;
       const response = await axios.get(url);
@@ -83,7 +84,7 @@ export async function handleRudal(chat, text) {
           const base64 = Buffer.from(buffer).toString("base64");
           const media = new MessageMedia("image/jpeg", base64);
           await chat.sendMessage(media, {
-            caption: `*${msg}*`,
+            caption: `${msg}`,
           });
           index++;
         })
@@ -98,9 +99,8 @@ export async function handleRudal(chat, text) {
         }\n*${item.n_judul.trim().replace(/\n/g, " ")}*\n\n`;
         index++;
       });
+      await chat.sendMessage(msg || "⚠️ Tidak ada data ditemukan.");
     }
-
-    // await chat.sendMessage(msg || "⚠️ Tidak ada data ditemukan.");
   } catch (error) {
     console.error("Error calling API:", error.message);
     await chat.sendMessage("❌ Gagal mengambil data rudal dari API");
