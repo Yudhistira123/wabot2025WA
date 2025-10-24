@@ -60,18 +60,30 @@ export async function handleRudal(chat, text) {
       const response = await axios.get(url);
       await Promise.all(
         response.data.data.map(async (item) => {
+          console.log("Processing item:", item.c_kode);
           msg = `*${item.n_title}*\n\n${item.n_desc
             .trim()
             .replace(/\n/g, " ")}\n\n`;
 
-          const res = await fetch(
-            "https://drharryhuiz.my.id/rn01/images/123RN.jpg"
-          );
+          const c_kode = item.c_kode.trim();
+          const code = c_kode.substring(2, c_kode.length - 4);
+          const imageUrl = `https://drharryhuiz.my.id/rn01/images/${code}.jpg`;
+
+          const res = await fetch(imageUrl);
+          // If image not found (404 or other)
+          if (!res.ok) {
+            console.warn(
+              `⚠️ Image not found for ${code}, using blankImage.jpg`
+            );
+            imageUrl = "https://drharryhuiz.my.id/rn01/images/blankImage.jpg";
+            res = await fetch(imageUrl);
+          }
+
           const buffer = Buffer.from(await res.arrayBuffer());
           const base64 = Buffer.from(buffer).toString("base64");
           const media = new MessageMedia("image/jpeg", base64);
           await chat.sendMessage(media, {
-            caption: `🏃 *${msg}*`,
+            caption: `*${msg}*`,
           });
           index++;
         })
