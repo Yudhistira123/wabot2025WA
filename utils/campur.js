@@ -1,6 +1,7 @@
 import axios from "axios";
 import pkg from "whatsapp-web.js";
 const { MessageMedia } = pkg;
+import fetch from "node-fetch";
 // ====================
 // 🔹 Fungsi untuk ambil data pasien
 // ====================
@@ -57,13 +58,24 @@ export async function handleRudal(chat, text) {
     } else if (indikator.includes("td")) {
       url = `https://drharryhuiz.my.id/rn01/getTDRudalByKode.php?c_kode=${indikator}`;
       const response = await axios.get(url);
+      await Promise.all(
+        response.data.data.map(async (item) => {
+          msg = `*${item.n_title}*\n\n${item.n_desc
+            .trim()
+            .replace(/\n/g, " ")}\n\n`;
 
-      response.data.data.forEach((item) => {
-        msg += `*${item.n_title}*\n\n${item.n_desc
-          .trim()
-          .replace(/\n/g, " ")}\n\n`;
-        index++;
-      });
+          const res = await fetch(
+            "https://drharryhuiz.my.id/rn01/images/123RN.jpg"
+          );
+          const buffer = Buffer.from(await res.arrayBuffer());
+          const base64 = Buffer.from(buffer).toString("base64");
+          const media = new MessageMedia("image/jpeg", base64);
+          await chat.sendMessage(media, undefined, {
+            caption: `🏃 *${msg}*`,
+          });
+          index++;
+        })
+      );
     } else {
       url = `https://drharryhuiz.my.id/rn01/getDataRudalByKode.php?c_kode=${indikator}`;
       const response = await axios.get(url);
@@ -76,7 +88,7 @@ export async function handleRudal(chat, text) {
       });
     }
 
-    await chat.sendMessage(msg || "⚠️ Tidak ada data ditemukan.");
+    // await chat.sendMessage(msg || "⚠️ Tidak ada data ditemukan.");
   } catch (error) {
     console.error("Error calling API:", error.message);
     await chat.sendMessage("❌ Gagal mengambil data rudal dari API");
