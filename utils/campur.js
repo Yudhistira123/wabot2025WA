@@ -70,7 +70,7 @@ export async function handleRudal(chat, text) {
           const buffer = Buffer.from(await res.arrayBuffer());
           const base64 = Buffer.from(buffer).toString("base64");
           const media = new MessageMedia("image/jpeg", base64);
-          await chat.sendMessage(media, undefined, {
+          await chat.sendMessage(media, {
             caption: `🏃 *${msg}*`,
           });
           index++;
