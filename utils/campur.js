@@ -51,6 +51,11 @@ export async function handleRudal(chat, text) {
       url = `https://drharryhuiz.my.id/rn01/getMainDataRudal.php`;
       const response = await axios.get(url);
 
+      const header =
+        "🏷️ Planning Link: https://rorisjayaabadi.com/030773/planning.php\n\n";
+      let msg = header; // start msg with the header
+      let index = 1;
+
       response.data.data.forEach((item) => {
         msg += `${index}. (${item.kode_prefix}) ${item.n_judul}\n`;
         index++;
