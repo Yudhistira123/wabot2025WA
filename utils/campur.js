@@ -63,6 +63,7 @@ export async function handleRudal(chat, text) {
       await chat.sendMessage(msg || "⚠️ Tidak ada data ditemukan.");
     } else if (indikator.includes("td")) {
       url = `https://drharryhuiz.my.id/rn01/getTDRudalByKode.php?c_kode=${indikator}`;
+      console.log("Fetching TD data from URL:", url);
       const response = await axios.get(url);
       await Promise.all(
         response.data.data.map(async (item) => {
