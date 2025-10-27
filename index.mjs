@@ -4,23 +4,44 @@ const { Client, LocalAuth } = pkg;
 import { initMQTT } from "./utils/mqttServices.js";
 import messageHandler from "./handlers/messageHandler.mjs";
 
+// const client = new Client({
+//   authStrategy: new LocalAuth(),
+//   puppeteer: {
+//     headless: true,
+//     executablePath: "/usr/bin/google-chrome", // ✅ confirmed path
+//     args: [
+//       "--no-sandbox",
+//       "--disable-setuid-sandbox",
+//       "--disable-dev-shm-usage",
+//       "--disable-accelerated-2d-canvas",
+//       "--no-first-run",
+//       "--no-zygote",
+//       "--single-process",
+//       "--disable-gpu",
+//     ],
+//   },
+//   puppeteerTimeout: 60000, // ⏱️ increase timeout to 60s
+// });
+
 const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
     headless: true,
-    executablePath: "/usr/bin/google-chrome", // ✅ confirmed path
+    executablePath: "/usr/bin/google-chrome",
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-accelerated-2d-canvas",
-      "--no-first-run",
-      "--no-zygote",
-      "--single-process",
+      "--disable-dev-shm-usage", // uses /tmp instead of /dev/shm
       "--disable-gpu",
+      "--disable-software-rasterizer", // prevents GPU crashes
+      "--disable-extensions",
+      "--disable-background-timer-throttling",
+      "--disable-backgrounding-occluded-windows",
+      "--disable-renderer-backgrounding",
+      "--remote-debugging-port=9222", // gives Puppeteer stable connection
     ],
   },
-  puppeteerTimeout: 60000, // ⏱️ increase timeout to 60s
+  puppeteerTimeout: 120000, // 2 minutes
 });
 
 initMQTT(client);
