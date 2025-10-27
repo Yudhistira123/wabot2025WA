@@ -20,6 +20,7 @@ const client = new Client({
       "--disable-gpu",
     ],
   },
+  puppeteerTimeout: 60000, // ⏱️ increase timeout to 60s
 });
 
 initMQTT(client);
