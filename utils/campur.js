@@ -77,8 +77,9 @@ export async function handleRudal(chat, text) {
               .replace(/\n/g, " ")}\n\n`;
 
             const c_kode = item.c_kode.trim();
-            const code = c_kode.substring(2, c_kode.length - 4);
-            let imageUrl = `https://drharryhuiz.my.id/rn01/images/${code}.jpg`;
+            const code = input.substring(2, 7) + ".jpg";
+            //const code = c_kode.substring(2, c_kode.length - 4);
+            let imageUrl = `https://drharryhuiz.my.id/rn01/images/${code}`;
 
             let res = await fetch(imageUrl);
             // If image not found (404 or other)
