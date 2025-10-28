@@ -72,7 +72,7 @@ export async function handleRudal(chat, text) {
         await Promise.all(
           response.data.data.map(async (item) => {
             console.log("Processing item:", item.c_kode);
-            msg = `*${item.n_title}*\n\n${item.n_desc
+            const msg = `*${item.n_title}*\n\n${item.n_desc
               .trim()
               .replace(/\n/g, " ")}\n\n`;
 
