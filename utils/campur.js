@@ -65,36 +65,41 @@ export async function handleRudal(chat, text) {
       url = `https://drharryhuiz.my.id/rn01/getTDRudalByKode.php?c_kode=${indikator}`;
       console.log("Fetching TD data from URL:", url);
       const response = await axios.get(url);
-      await Promise.all(
-        response.data.data.map(async (item) => {
-          console.log("Processing item:", item.c_kode);
-          msg = `*${item.n_title}*\n\n${item.n_desc
-            .trim()
-            .replace(/\n/g, " ")}\n\n`;
+      if (response.data.status === "success" && response.data.count === 0) {
+        // No data found
+        await chat.sendMessage(`There is no data with Kode ${indikator}`);
+      } else {
+        await Promise.all(
+          response.data.data.map(async (item) => {
+            console.log("Processing item:", item.c_kode);
+            msg = `*${item.n_title}*\n\n${item.n_desc
+              .trim()
+              .replace(/\n/g, " ")}\n\n`;
 
-          const c_kode = item.c_kode.trim();
-          const code = c_kode.substring(2, c_kode.length - 4);
-          let imageUrl = `https://drharryhuiz.my.id/rn01/images/${code}.jpg`;
+            const c_kode = item.c_kode.trim();
+            const code = c_kode.substring(2, c_kode.length - 4);
+            let imageUrl = `https://drharryhuiz.my.id/rn01/images/${code}.jpg`;
 
-          let res = await fetch(imageUrl);
-          // If image not found (404 or other)
-          if (!res.ok) {
-            console.warn(
-              `⚠️ Image not found for ${code}, using blankImage.jpg`
-            );
-            imageUrl = "https://drharryhuiz.my.id/rn01/images/blankImage.jpg";
-            res = await fetch(imageUrl);
-          }
+            let res = await fetch(imageUrl);
+            // If image not found (404 or other)
+            if (!res.ok) {
+              console.warn(
+                `⚠️ Image not found for ${code}, using blankImage.jpg`
+              );
+              imageUrl = "https://drharryhuiz.my.id/rn01/images/blankImage.jpg";
+              res = await fetch(imageUrl);
+            }
 
-          const buffer = Buffer.from(await res.arrayBuffer());
-          const base64 = Buffer.from(buffer).toString("base64");
-          const media = new MessageMedia("image/jpeg", base64);
-          await chat.sendMessage(media, {
-            caption: `${msg}`,
-          });
-          index++;
-        })
-      );
+            const buffer = Buffer.from(await res.arrayBuffer());
+            const base64 = Buffer.from(buffer).toString("base64");
+            const media = new MessageMedia("image/jpeg", base64);
+            await chat.sendMessage(media, {
+              caption: `${msg}`,
+            });
+            index++;
+          })
+        );
+      }
     } else {
       url = `https://drharryhuiz.my.id/rn01/getDataRudalByKode.php?c_kode=${indikator}`;
       const response = await axios.get(url);
