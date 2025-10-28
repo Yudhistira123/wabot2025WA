@@ -72,9 +72,13 @@ export async function handleRudal(chat, text) {
         await Promise.all(
           response.data.data.map(async (item) => {
             console.log("Processing item:", item.c_kode);
+            // const msg = `*${item.n_title}*\n\n${item.n_desc
+            //   .trim()
+            //   .replace(/\n/g, " ")}\n\n`;
+
             const msg = `*${item.n_title}*\n\n${item.n_desc
               .trim()
-              .replace(/\n/g, " ")}\n\n`;
+              .replace(/\n/g, "\n")}\n\n`;
 
             const c_kode = item.c_kode.trim();
             const code = c_kode.substring(2, 7) + ".jpg";
