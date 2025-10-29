@@ -73,7 +73,7 @@ export async function handleVoiceMessage(chat, message) {
 
     // 5️⃣ Voice command detection
     const lowerText = transcribedText.toLowerCase();
-    const cleanText = lowerText.endsWith(".")
+    const cleanText = lowerText.trim().endsWith(".")
       ? lowerText.slice(0, -1)
       : lowerText;
 
