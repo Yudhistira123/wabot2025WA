@@ -73,7 +73,11 @@ export async function handleVoiceMessage(chat, message) {
 
     // 5️⃣ Voice command detection
     const lowerText = transcribedText.toLowerCase();
-    const cleanText = lowerText.trim().replace(/[.,!?;:]$/, "");
+    const cleanText = lowerText.endsWith(".")
+      ? lowerText.slice(0, -1)
+      : lowerText;
+
+    //const cleanText = lowerText.trim().replace(/[.,!?;:]$/, "");
 
     if (lowerText.includes("jadwal sholat")) {
       await handleJadwalSholat(chat, cleanText);
