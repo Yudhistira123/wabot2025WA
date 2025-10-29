@@ -3,6 +3,7 @@ import { handleJadwalSholat, handleQuranCommand } from "../utils/sholat.js";
 import { handleHasilLari } from "../utils/stravaService.js";
 import { publishMessage } from "../utils/mqttServices.js";
 import { handleLocationMessage } from "../utils/attendance.js";
+import { handleVoiceMessage } from "../utils/handleVoiceMessage.js";
 
 export default async function groupMessageHandler(client, message) {
   console.log("📢 Pesan dari grup.");
@@ -10,6 +11,14 @@ export default async function groupMessageHandler(client, message) {
   const text = message.body.toLowerCase();
   console.log(`👥 Grup: ${chat.name}`);
   const oriText = message.body;
+
+  if (
+    (message.hasMedia && message.type === "audio") ||
+    message.type === "ptt"
+  ) {
+    await handleVoiceMessage(chat, message);
+    return; // exit after handling voice
+  }
 
   if (text.startsWith("jadwal sholat")) {
     await handleJadwalSholat(chat, text);
