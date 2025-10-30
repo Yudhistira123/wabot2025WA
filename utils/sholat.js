@@ -219,7 +219,7 @@ export async function getSholatByLocation(kodeLokasi) {
     let replyMsg =
       `🕌 *Jadwal Sholat ${sholatData.data.lokasi.toUpperCase()}*\n` +
       `🗓️ ${jadwal.tanggal}\n` +
-      `📅 ${hijriString}H\n` +
+      `🕋 ${hijriString}H\n` +
       "━━━━━━━━━━━━━━━━━━━━\n" +
       "```" + // start monospace block
       `🌅 Imsak     : ${jadwal.imsak} WIB\n` +
