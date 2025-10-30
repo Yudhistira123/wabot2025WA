@@ -33,7 +33,7 @@ export default async function groupMessageHandler(client, message) {
     let topic = parts[2]; // keep original case
     let isi = parts[3]; // keep original case
     console.log(`Parsed - msg: ${msg}, topic: ${topic}, isi: ${isi}`);
-    if (isi !== undefined) {
+    if (isi === undefined) {
       isi = "0";
     }
 
