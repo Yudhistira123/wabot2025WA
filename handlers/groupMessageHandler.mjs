@@ -24,13 +24,30 @@ export default async function groupMessageHandler(client, message) {
     await handleJadwalSholat(chat, text);
   } else if (text.toLowerCase() === "hasil club lari") {
     await handleHasilLari(chat, text);
-  } else if (text.toLowerCase().startsWith("led:")) {
+  } else if (
+    text.toLowerCase().startsWith("led:") ||
+    text.toLowerCase().startsWith("pju:")
+  ) {
     let parts = oriText.split(":");
     let msg = parts[1]; // keep original case
     let topic = parts[2]; // keep original case
+    let isi = parts[3]; // keep original case
+    if (isi !== undefined) {
+      isi = "";
+    }
+
     if (topic === undefined) {
       topic = "parola/display";
     }
+
+    if (msg === 5) {
+      msg = topic + ":" + isi;
+      topic = "PJU/R1.JC.05";
+    } else if (msg === 6) {
+      msg = topic + ":" + isi;
+      topic = "PJU/R1.JC.06";
+    }
+    console.log(`🔆 MQTT Topic: ${topic}, Message: ${msg}`);
     publishMessage(topic, msg);
   } else if (message.type === "location") {
     let reply = await handleLocationMessage(message, client);
