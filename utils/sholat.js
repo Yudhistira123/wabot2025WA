@@ -211,6 +211,10 @@ export async function getSholatByLocation(kodeLokasi) {
     //   `🌆 Maghrib   : ${jadwal.maghrib} WIB\n` +
     //   `🌙 Isya    : ${jadwal.isya} WIB`;
 
+    const url1 = "https://drharryhuiz.my.id/rn01/getDataQuote.php";
+    const doa = await getDoaAcak(url1);
+    console.log(doa);
+
     let replyMsg =
       `🕌 *Jadwal Sholat ${sholatData.data.lokasi.toUpperCase()}*\n` +
       `🗓️ ${jadwal.tanggal}\n` +
@@ -257,9 +261,9 @@ export async function getKodeKota(namaKota) {
 }
 
 // Ambil doa acak dari MyQuran API
-export async function getDoaAcak() {
+export async function getDoaAcak(url) {
   try {
-    const url = "https://api.myquran.com/v2/doa/acak";
+    //const url = "https://api.myquran.com/v2/doa/acak";
     const res = await axios.get(url, { timeout: 15000 });
     return res.data.data; // ambil bagian data doa
   } catch (err) {
@@ -413,7 +417,8 @@ export async function handleQuranCommand(text, chat) {
     await chat.sendMessage(reply);
     return;
   } else if (suratAyat === "doa" || suratAyat === "dua") {
-    const doa = await getDoaAcak();
+    const url = "https://api.myquran.com/v2/doa/acak";
+    const doa = await getDoaAcak(url);
     const tesxdoa = formatDoa(doa);
     await chat.sendMessage(tesxdoa);
     return;
