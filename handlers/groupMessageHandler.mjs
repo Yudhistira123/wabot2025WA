@@ -40,10 +40,10 @@ export default async function groupMessageHandler(client, message) {
       topic = "parola/display";
     }
 
-    if (msg === 5) {
+    if (msg === "5") {
       msg = topic + ":" + isi;
       topic = "PJU/R1.JC.05";
-    } else if (msg === 6) {
+    } else if (msg === "6") {
       msg = topic + ":" + isi;
       topic = "PJU/R1.JC.06";
     }
