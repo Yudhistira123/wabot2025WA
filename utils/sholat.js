@@ -214,6 +214,22 @@ export async function getSholatByLocation(kodeLokasi) {
     const url1 = "https://drharryhuiz.my.id/rn01/getDataQuote.php";
     const doa = await getDoaAcak(url1);
     console.log(doa);
+    const quoteText = doa[0].n_des;
+
+    // let replyMsg =
+    //   `🕌 *Jadwal Sholat ${sholatData.data.lokasi.toUpperCase()}*\n` +
+    //   `🗓️ ${jadwal.tanggal}\n` +
+    //   `📅 ${hijriString}H\n\n` +
+    //   "```" + // start monospace block
+    //   `🌅 Imsak     : ${jadwal.imsak} WIB\n` +
+    //   `🌄 Subuh     : ${jadwal.subuh} WIB\n` +
+    //   `🌤️ Terbit    : ${jadwal.terbit} WIB\n` +
+    //   `🌞 Dhuha     : ${jadwal.dhuha} WIB\n` +
+    //   `☀️ Dzuhur    : ${jadwal.dzuhur} WIB\n` +
+    //   `🌇 Ashar     : ${jadwal.ashar} WIB\n` +
+    //   `🌆 Maghrib   : ${jadwal.maghrib} WIB\n` +
+    //   `🌙 Isya      : ${jadwal.isya} WIB` +
+    //   "```\n+"; // end monospace block
 
     let replyMsg =
       `🕌 *Jadwal Sholat ${sholatData.data.lokasi.toUpperCase()}*\n` +
@@ -228,7 +244,9 @@ export async function getSholatByLocation(kodeLokasi) {
       `🌇 Ashar     : ${jadwal.ashar} WIB\n` +
       `🌆 Maghrib   : ${jadwal.maghrib} WIB\n` +
       `🌙 Isya      : ${jadwal.isya} WIB` +
-      "```"; // end monospace block
+      "```\n\n" + // end monospace block
+      "━━━━━━━━━━━━━━━━━━━━\n" +
+      `📖 *Quote:*\n_"${quoteText}"_`;
 
     //======
 
