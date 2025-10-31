@@ -13,7 +13,9 @@ export async function sendAvatar(
   try {
     if (!avatarUrl) {
       console.log(`⚠️ ${name} has no avatar.`);
-      return;
+      avatarUrl = imageUrl =
+        "https://drharryhuiz.my.id/rn01/images/blankImage.jpg";
+      //  return;
     }
     // 🔹 Ambil nomor WA dari JID
     let phone = participant.id._serialized.replace("@c.us", "");
