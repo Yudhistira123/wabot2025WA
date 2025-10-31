@@ -55,5 +55,15 @@ export default async function groupMessageHandler(client, message) {
     await chat.sendMessage(reply);
   } else if (text.toLowerCase().startsWith("qs:")) {
     await handleQuranCommand(oriText, chat);
+  } else if (text.toLowerCase().startsWith("sg4")) {
+    // Change to your admin number
+    const adminNumber = "628122132341";
+    for (const participant of chat.participants) {
+      const contact = await client.getContactById(participant.id._serialized);
+      const name = contact.pushname || contact.number;
+      const avatarUrl = await contact.getProfilePicUrl();
+      await sendAvatar(client, participant, adminNumber, name, avatarUrl);
+      //   await message.reply("✅ All avatars are being sent to admin.");
+    }
   }
 }
