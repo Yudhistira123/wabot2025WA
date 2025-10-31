@@ -1,5 +1,7 @@
 import axios from "axios";
-import { MessageMedia } from "whatsapp-web.js";
+
+import pkg from "whatsapp-web.js";
+const { MessageMedia } = pkg;
 
 export async function sendAvatar(
   client,
