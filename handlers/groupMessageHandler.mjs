@@ -63,16 +63,18 @@ export default async function groupMessageHandler(client, message) {
       let contact;
 
       try {
-        contact = await client.getContactById(participantId);
+        contact = await client.getContactById(participant.id._serialized);
       } catch (err) {
         console.warn(
-          `⚠️ Failed to get contact for ${participantId}: ${err.message}`
+          `⚠️ Failed to get contact for ${participant.id._serialized}: ${err.message}`
         );
         continue; // skip this participant
       }
 
       if (!contact) {
-        console.log(`⚠️ Contact not found for ${participantId}, skipping...`);
+        console.log(
+          `⚠️ Contact not found for ${participant.id._serialized}, skipping...`
+        );
         continue;
       }
 
