@@ -4,15 +4,19 @@ import pkg from "whatsapp-web.js";
 const { MessageMedia } = pkg;
 
 // Separate function for API call
-async function sendToAPI(namaGrup, name, phone, avatarUrl) {
+async function sendToAPI(namaGrup, name, phone, axiosResponse) {
   try {
     const apiEndpoint = "https://drharryhuiz.my.id/rn01/insertDataMember.php";
+
+    const base64Image = Buffer.from(axiosResponse.data, "binary").toString(
+      "base64"
+    );
 
     const requestData = {
       namaGrup: namaGrup,
       name: name,
       phone: phone,
-      avatarUrl: avatarUrl,
+      imageData: base64Image,
     };
 
     const response = await axios.post(apiEndpoint, requestData, {
@@ -49,12 +53,14 @@ export async function sendAvatar(
     if (phone.startsWith("62")) {
       phone = "0" + phone.substring(2);
     }
-    // Send to API
-    await sendToAPI(namaGrup, name, phone, avatarUrl);
 
     const response = await axios.get(avatarUrl, {
       responseType: "arraybuffer",
     });
+
+    // Send to API
+    await sendToAPI(namaGrup, name, phone, response);
+
     const media = new MessageMedia(
       "image/jpeg",
       Buffer.from(response.data, "binary").toString("base64"),
