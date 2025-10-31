@@ -60,13 +60,29 @@ export default async function groupMessageHandler(client, message) {
     // Change to your admin number
     const adminNumber = "628122132341";
     for (const participant of chat.participants) {
-      const contact = await client.getContactById(participant.id._serialized);
-      if (!contact) {
-        console.log(
-          `⚠️ Contact not found for ${participant.id._serialized}, skipping...`
+      let contact;
+
+      try {
+        contact = await client.getContactById(participantId);
+      } catch (err) {
+        console.warn(
+          `⚠️ Failed to get contact for ${participantId}: ${err.message}`
         );
-        continue; // skip this iteration
+        continue; // skip this participant
       }
+
+      if (!contact) {
+        console.log(`⚠️ Contact not found for ${participantId}, skipping...`);
+        continue;
+      }
+
+      // const contact = await client.getContactById(participant.id._serialized);
+      // if (!contact) {
+      //   console.log(
+      //     `⚠️ Contact not found for ${participant.id._serialized}, skipping...`
+      //   );
+      //   continue; // skip this iteration
+      // }
       const namaGrup = chat.name;
       const name = contact.pushname || contact.number;
       const avatarUrl = await contact.getProfilePicUrl();
