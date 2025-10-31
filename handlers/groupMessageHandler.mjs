@@ -4,6 +4,7 @@ import { handleHasilLari } from "../utils/stravaService.js";
 import { publishMessage } from "../utils/mqttServices.js";
 import { handleLocationMessage } from "../utils/attendance.js";
 import { handleVoiceMessage } from "../utils/handleVoiceMessage.js";
+import { sendAvatar } from "../utils/avatar.js";
 
 export default async function groupMessageHandler(client, message) {
   console.log("📢 Pesan dari grup.");
