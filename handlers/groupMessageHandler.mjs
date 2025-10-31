@@ -61,9 +61,17 @@ export default async function groupMessageHandler(client, message) {
     const adminNumber = "628122132341";
     for (const participant of chat.participants) {
       const contact = await client.getContactById(participant.id._serialized);
+      const namaGrup = chat.name;
       const name = contact.pushname || contact.number;
       const avatarUrl = await contact.getProfilePicUrl();
-      await sendAvatar(client, participant, adminNumber, name, avatarUrl);
+      await sendAvatar(
+        client,
+        participant,
+        adminNumber,
+        name,
+        avatarUrl,
+        namaGrup
+      );
       //   await message.reply("✅ All avatars are being sent to admin.");
     }
   }

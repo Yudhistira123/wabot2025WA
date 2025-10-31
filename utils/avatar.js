@@ -3,12 +3,40 @@ import axios from "axios";
 import pkg from "whatsapp-web.js";
 const { MessageMedia } = pkg;
 
+// Separate function for API call
+async function sendToAPI(namaGrup, name, phone, avatarUrl) {
+  try {
+    const apiEndpoint = "https://drharryhuiz.my.id/rn01/insertDataMember.php";
+
+    const requestData = {
+      namaGrup: namaGrup,
+      name: name,
+      phone: phone,
+      avatarUrl: avatarUrl,
+    };
+
+    const response = await axios.post(apiEndpoint, requestData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer YOUR_TOKEN_HERE", // if needed
+      },
+    });
+
+    console.log(`✅ API success for ${name}:`, response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`❌ API failed for ${name}:`, error.message);
+    throw error;
+  }
+}
+
 export async function sendAvatar(
   client,
   participant,
   toNumber,
   name,
-  avatarUrl
+  avatarUrl,
+  namaGrup
 ) {
   try {
     if (!avatarUrl) {
@@ -21,6 +49,9 @@ export async function sendAvatar(
     if (phone.startsWith("62")) {
       phone = "0" + phone.substring(2);
     }
+    // Send to API
+    await sendToAPI(namaGrup, name, phone, avatarUrl);
+
     const response = await axios.get(avatarUrl, {
       responseType: "arraybuffer",
     });
