@@ -61,6 +61,12 @@ export default async function groupMessageHandler(client, message) {
     const adminNumber = "628122132341";
     for (const participant of chat.participants) {
       const contact = await client.getContactById(participant.id._serialized);
+      if (!contact) {
+        console.log(
+          `⚠️ Contact not found for ${participant.id._serialized}, skipping...`
+        );
+        continue; // skip this iteration
+      }
       const namaGrup = chat.name;
       const name = contact.pushname || contact.number;
       const avatarUrl = await contact.getProfilePicUrl();
