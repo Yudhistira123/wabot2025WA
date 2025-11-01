@@ -21,7 +21,27 @@ export default async function groupMessageHandler(client, message) {
     return; // exit after handling voice
   }
 
-  if (text.startsWith("jadwal sholat")) {
+  if (text.startsWith("halo musashi") || text.startsWith("hi musashi")) {
+    // Get sender info
+    const contact = await message.getContact(); // 👈 this gives you the sender
+    const number = contact.id._serialized; // full WhatsApp ID (e.g. 628123456789@c.us)
+    const name = contact.pushname || contact.name || "Unknown"; // display name
+
+    // Get avatar (may be null if user hides profile picture)
+    const avatarUrl = await contact.getProfilePicUrl();
+
+    // Original text
+    const oriText = message.body;
+    console.log(`💬 Pesan: ${oriText}`);
+
+    // Print sender details
+    console.log(`👤 Nama Pengirim: ${name}`);
+    console.log(`📱 Nomor: ${number}`);
+    console.log(`🖼️ Avatar: ${avatarUrl || "No avatar available"}`);
+    await chat.sendMessage(
+      `Halo, ${name}/${number}! Ada yang bisa saya bantu? 🤖`
+    );
+  } else if (text.startsWith("jadwal sholat")) {
     await handleJadwalSholat(chat, text);
   } else if (text.toLowerCase() === "hasil club lari") {
     await handleHasilLari(chat, text);
