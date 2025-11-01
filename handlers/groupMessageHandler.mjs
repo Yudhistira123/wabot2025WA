@@ -24,12 +24,18 @@ export default async function groupMessageHandler(client, message) {
   if (text.startsWith("halo musashi") || text.startsWith("hi musashi")) {
     // Get sender info
     const contact = await message.getContact(); // 👈 this gives you the sender
-    const number = contact.id._serialized; // full WhatsApp ID (e.g. 628123456789@c.us)
+    let number = contact.id._serialized; // full WhatsApp ID (e.g. 628123456789@c.us)
     number = number.replace("@c.us", "");
     if (number.startsWith("62")) {
       number = "0" + number.slice(2);
     }
     const name = contact.pushname || contact.name || "Unknown"; // display name
+    let msg = " untuk menguji IoT PJU sintaknya sebagai berikut:\n";
+    msg += "pju:nomorLampu:on/off:intensitas(5-95)\n";
+    await chat.sendMessage(
+      `Halo, ${name}/${number}! Ada yang bisa saya bantu? 🤖\n` + msg
+    );
+    //
     await chat.sendMessage(
       `Halo, ${name}/${number}! Ada yang bisa saya bantu? 🤖`
     );
