@@ -25,19 +25,11 @@ export default async function groupMessageHandler(client, message) {
     // Get sender info
     const contact = await message.getContact(); // 👈 this gives you the sender
     const number = contact.id._serialized; // full WhatsApp ID (e.g. 628123456789@c.us)
+    number = number.replace("@c.us", "");
+    if (number.startsWith("62")) {
+      number = "0" + number.slice(2);
+    }
     const name = contact.pushname || contact.name || "Unknown"; // display name
-
-    // Get avatar (may be null if user hides profile picture)
-    const avatarUrl = await contact.getProfilePicUrl();
-
-    // Original text
-    const oriText = message.body;
-    console.log(`💬 Pesan: ${oriText}`);
-
-    // Print sender details
-    console.log(`👤 Nama Pengirim: ${name}`);
-    console.log(`📱 Nomor: ${number}`);
-    console.log(`🖼️ Avatar: ${avatarUrl || "No avatar available"}`);
     await chat.sendMessage(
       `Halo, ${name}/${number}! Ada yang bisa saya bantu? 🤖`
     );
