@@ -32,9 +32,7 @@ export default async function groupMessageHandler(client, message) {
     const name = contact.pushname || contact.name || "Unknown"; // display name
     let msg = "Demo IoT PJU sintaknya sebagai berikut:\n";
     msg += "pju:nomorLampu:on/off:intensitas(5-95)\n";
-    await chat.sendMessage(
-      `Halo, ${name} (${number})juga, apa kabar 🤖\n` + msg
-    );
+    await chat.sendMessage(`Halo hi ${name} (${number}), apa kabar 🤖\n` + msg);
   } else if (text.startsWith("jadwal sholat")) {
     await handleJadwalSholat(chat, text);
   } else if (text.toLowerCase() === "hasil club lari") {
