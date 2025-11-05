@@ -1,4 +1,7 @@
-import { List, Buttons } from "whatsapp-web.js";
+// import { List, Buttons } from "whatsapp-web.js";
+
+import pkg from "whatsapp-web.js";
+const { List, Buttons } = pkg;
 
 // Welcome Menu
 export async function sendWelcomeMenu(message, client) {
