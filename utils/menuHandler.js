@@ -1,18 +1,20 @@
 // import { List, Buttons } from "whatsapp-web.js";
 
 import pkg from "whatsapp-web.js";
-const { List, Buttons } = pkg;
+const { List } = pkg;
+//import { List } from "whatsapp-web.js";
 
-// Welcome Menu
+// Welcome Menu - Using regular message with instructions
 export async function sendWelcomeMenu(message, client) {
-  const buttons = new Buttons(
-    "Kami berkomitmen untuk melindungi data privasi Pelanggan. Silakan periksa kebijakan privasi serta syarat dan ketentuan berlangganan di: https://hifi.ioh.co.id/privacypolicy\n\nKlik tombol berikut untuk memilih yang kamu butuhkan.\n________________________________\n*Type **English** jika ingin mengganti bahasa ke Inggris*",
-    [{ body: "Pilih Menu" }],
-    "Indosat Hifi Assistant 💡",
-    "Pilih opsi di bawah:"
-  );
+  const welcomeMessage = `Indosat Hifi Assistant 💡
 
-  await client.sendMessage(message.from, buttons);
+Kami berkomitmen untuk melindungi data privasi Pelanggan. Silakan periksa kebijakan privasi serta syarat dan ketentuan berlangganan di: https://hifi.ioh.co.id/privacypolicy
+
+Ketik *Pilih Menu* untuk melanjutkan.
+________________________________
+*Ketik **English** jika ingin mengganti bahasa ke Inggris*`;
+
+  await client.sendMessage(message.from, welcomeMessage);
 }
 
 // Main Menu (Service Selection)
@@ -83,14 +85,15 @@ export async function sendServiceMenu(message, client) {
 
 // English Welcome Menu
 export async function sendEnglishMenu(message, client) {
-  const buttons = new Buttons(
-    "We are committed to protecting customer privacy data. Please check the privacy policy and subscription terms at: https://hifi.ioh.co.id/privacypolicy\n\nClick the button below to select what you need.\n________________________________\n*Type **Indonesian** jika ingin mengganti bahasa ke Indonesia*",
-    [{ body: "Select Menu" }],
-    "Indosat Hifi Assistant 💡",
-    "Choose option below:"
-  );
+  const welcomeMessage = `Indosat Hifi Assistant 💡
 
-  await client.sendMessage(message.from, buttons);
+We are committed to protecting customer privacy data. Please check the privacy policy and subscription terms at: https://hifi.ioh.co.id/privacypolicy
+
+Type *Select Menu* to continue.
+________________________________
+*Type **Indonesian** jika ingin mengganti bahasa ke Indonesia*`;
+
+  await client.sendMessage(message.from, welcomeMessage);
 }
 
 // English Main Menu
@@ -159,36 +162,32 @@ export async function sendEnglishServiceMenu(message, client) {
   await client.sendMessage(message.from, list);
 }
 
-// Alternative method using buttons only (Indonesian)
-export async function sendMainButtons(message, client) {
-  const buttons = new Buttons(
-    "Pilih menu yang Anda butuhkan:",
-    [
-      { body: "💳 Pembayaran" },
-      { body: "🔄 Ubah Paket" },
-      { body: "🆕 Langganan Baru" },
-      { body: "❓ Bantuan HiFi" },
-    ],
-    "Indosat Hifi Assistant 💡",
-    "Menu Layanan"
-  );
+// Alternative: Simple text menu for main options
+export async function sendTextMenu(message, client) {
+  const menuText = `Indosat Hifi Assistant 💡
+Menu Layanan:
 
-  await client.sendMessage(message.from, buttons);
+📌 *Pembayaran* - Bayar tagihan dan pembayaran
+📌 *Ubah Paket* - Ubah paket langganan  
+📌 *Langganan Baru* - Buat langganan baru
+📌 *Bantuan HiFi* - Bantuan dan dukungan
+
+Ketik pilihan Anda (contoh: Pembayaran)`;
+
+  await client.sendMessage(message.from, menuText);
 }
 
-// Alternative method using buttons only (English)
-export async function sendEnglishButtons(message, client) {
-  const buttons = new Buttons(
-    "Select the menu you need:",
-    [
-      { body: "💳 Payment" },
-      { body: "🔄 Change Package" },
-      { body: "🆕 New Subscription" },
-      { body: "❓ HiFi Help" },
-    ],
-    "Indosat Hifi Assistant 💡",
-    "Service Menu"
-  );
+// Alternative: English text menu
+export async function sendEnglishTextMenu(message, client) {
+  const menuText = `Indosat Hifi Assistant 💡
+Service Menu:
 
-  await client.sendMessage(message.from, buttons);
+📌 *Payment* - Pay bills and payments
+📌 *Change Package* - Change subscription package  
+📌 *New Subscription* - Create new subscription
+📌 *HiFi Help* - Help and support
+
+Type your choice (example: Payment)`;
+
+  await client.sendMessage(message.from, menuText);
 }
