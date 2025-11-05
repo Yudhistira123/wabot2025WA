@@ -20,8 +20,6 @@ export async function sendEnglishMainMenu(message, client) {
   await sendEnglishMainMenu(message, client);
 }
 
-import { Buttons } from "whatsapp-web.js";
-
 export async function send(message, client) {
   const buttons = new Buttons(
     "Kami berkomitmen untuk melindungi data privasi Pelanggan. Silakan periksa kebijakan privasi serta syarat dan ketentuan berlangganan di: https://hifi.ioh.co.id/privacypolicy\n\nKlik tombol berikut untuk memilih yang kamu butuhkan.\n________________________________\n*Type **English** jika ingin mengganti bahasa ke Inggris*",
