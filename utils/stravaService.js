@@ -56,7 +56,7 @@ export async function getClubActivities(CLUB_ID) {
       `https://www.strava.com/api/v3/clubs/${CLUB_ID}/activities`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
-        params: { per_page: 15 }, // ambil 5 aktivitas terbaru
+        params: { per_page: 14 }, // ambil 5 aktivitas terbaru
       }
     );
     console.log("📊 Club Activities:", JSON.stringify(res.data, null, 2));
@@ -107,7 +107,7 @@ export async function handleHasilLari(chat, text) {
     `🌍 Lokasi: ${clubInfo.city}, ${clubInfo.state}, ${clubInfo.country}\n` +
     `👥 Member: ${clubInfo.member_count}\n\n` +
     `ℹ️ ${clubInfo.description || "No description"}\n\n` +
-    `=== 15 aktifitas joging terbaru ===\n\n`;
+    `=== Aktifitas Joging Terbaru ===\n\n`;
 
   activities.forEach((act, i) => {
     const distanceKm = act.distance / 1000;
