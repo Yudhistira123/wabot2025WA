@@ -133,3 +133,7 @@ export async function handleHasilLari(chat, text) {
 }
 
 // module.exports = { getClubInfo, getClubActivities };
+
+// const CLUB_ID = "728531"; // ID Club Laris
+// const clubInfo = await getClubInfo(CLUB_ID);
+// const activities = await getClubActivities(CLUB_ID);

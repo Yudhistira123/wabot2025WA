@@ -21,7 +21,7 @@ const menuOptions = {
   4: "bantuan hifi",
 
   // Indonesian text options
-  pembayaran:
+  "pembayaran":
     "Anda memilih menu Pembayaran. 🏦\nFitur ini sedang dikembangkan. Silakan hubungi customer service untuk pembayaran.",
   "ubah paket":
     "Anda memilih menu Ubah Paket. 🔄\nFitur ini sedang dikembangkan. Silakan hubungi customer service untuk mengubah paket.",
