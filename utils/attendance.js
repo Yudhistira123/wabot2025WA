@@ -12,6 +12,44 @@ import {
 import { getWeather, formatWeather } from "./weather.js";
 import { getFilteredPOISorted } from "./googleApi.js";
 
+import Openrouteservice from "openrouteservice-js";
+
+const orsDirections = new Openrouteservice.Directions({
+  api_key:
+    "5b3ce3597851110001cf624834ac8052057984493f97fcc0a28c98b2ce09c978bce1e159e0470756",
+});
+
+async function getDistance(lat1, lon1, lat2, lon2) {
+  try {
+    const result = await orsDirections.calculate({
+      coordinates: [
+        [lon1, lat1],
+        [lon2, lat2],
+        // [107.57496222096368, -6.849854077903357], // Start (lon, lat)
+        // [107.619123, -6.917464], // End (lon, lat)
+      ],
+      profile: "driving-car",
+      format: "json",
+    });
+
+    const route = result.routes[0].summary;
+
+    const distanceKm = (route.distance / 1000).toFixed(2);
+    const durationMinutes = (route.duration / 60).toFixed(1);
+
+    // Convert minutes → human readable hours + minutes
+    const hours = Math.floor(route.duration / 3600);
+    const minutes = Math.round((route.duration % 3600) / 60);
+    const readableTime =
+      hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
+
+    const msg = `📏 Distance: ${distanceKm} km \n ⏱️ Duration: ${readableTime}`;
+    return msg;
+  } catch (err) {
+    console.error("❌ Error:", err.message || err);
+  }
+}
+
 // helper untuk ambil nomor WA dari JID
 export async function jidToNumber(jid, sock) {
   if (!jid) return null;
@@ -178,7 +216,17 @@ export async function handleLocationMessage(msg, sock) {
     longitude,
     timestampMs
   );
+
   console.log({ localTime });
+
+  let distanceInfo = await getDistance(
+    -6.849915016179521,
+    107.57502915720168,
+    latitude,
+    longitude
+  );
+
+  localTime += `\n${distanceInfo}`;
 
   // kirim balasan ke pengirim
   let header =
