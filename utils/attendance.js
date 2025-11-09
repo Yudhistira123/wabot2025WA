@@ -47,7 +47,9 @@ async function getDistance(lat1, lon1, lat2, lon2) {
     return msg;
   } catch (err) {
     console.error("❌ Error:", err.message || err);
-    const distanceKm = (haversineDistance(start, end) / 1000).toFixed(2);
+    const distanceKm = (
+      haversineDistance(lat1, lon1, lat2, lon2) / 1000
+    ).toFixed(2);
     const msg = `🏍️ to Musashi: ${distanceKm} km 🏁`;
     return msg;
   }
