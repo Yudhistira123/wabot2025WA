@@ -43,7 +43,7 @@ async function getDistance(lat1, lon1, lat2, lon2) {
     const readableTime =
       hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
 
-    const msg = `🏍️ Distance to Musashi Server: ${distanceKm} km 🏁`;
+    const msg = `🏍️ to Musashi: ${distanceKm} km 🏁`;
     return msg;
   } catch (err) {
     console.error("❌ Error:", err.message || err);
@@ -217,7 +217,7 @@ export async function handleLocationMessage(msg, sock) {
     timestampMs
   );
 
-  console.log({ localTime });
+  // console.log({ localTime });
 
   let distanceInfo = await getDistance(
     -6.849915016179521,

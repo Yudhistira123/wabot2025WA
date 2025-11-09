@@ -7,10 +7,10 @@ import { getLocalTimeFromMessage } from "./attendance.js";
 
 export async function getWeather(lat, lon, apiKey) {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=ID`;
-  console.log("Fetching weather from:", url);
+  // console.log("Fetching weather from:", url);
   try {
     const res = await axios.get(url);
-    console.log("Yudhistira", res.data);
+    // console.log("Yudhistira", res.data);
     return res.data;
   } catch (err) {
     console.error("❌ Error getWeather:", err.message);
