@@ -215,11 +215,13 @@ export async function getSholatByLocation(kodeLokasi) {
     const doa = await getDoaAcak(url1);
     console.log(doa);
     const quoteText = doa[0].n_des;
+    let sumber = "https://bimasislam.kemenag.go.id";
 
     let replyMsg =
       `🕌 *Jadwal Sholat ${sholatData.data.lokasi.toUpperCase()}*\n` +
       `🗓️ ${jadwal.tanggal}\n` +
       `🕋 ${hijriString}H\n` +
+      `🛰️ ${sumber}\n` +
       "━━━━━━━━━━━━━━━━━━━━\n" +
       "```" + // start monospace block
       `🌅 Imsak     : ${jadwal.imsak} WIB\n` +
