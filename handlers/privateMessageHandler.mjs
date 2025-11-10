@@ -21,7 +21,7 @@ const menuOptions = {
   4: "bantuan hifi",
 
   // Indonesian text options
-  "pembayaran":
+  pembayaran:
     "Anda memilih menu Pembayaran. 🏦\nFitur ini sedang dikembangkan. Silakan hubungi customer service untuk pembayaran.",
   "ubah paket":
     "Anda memilih menu Ubah Paket. 🔄\nFitur ini sedang dikembangkan. Silakan hubungi customer service untuk mengubah paket.",
@@ -140,21 +140,21 @@ export default async function privateMessageHandler(client, message) {
   }
 
   // If no command matched, show welcome with suggestion
-  if (!menuOptions[text] && text.length > 1) {
-    const helpMessage = `Indosat Hifi Assistant 💡
+  //   if (!menuOptions[text] && text.length > 1) {
+  //     const helpMessage = `Indosat Hifi Assistant 💡
 
-Saya tidak mengerti permintaan "${message.body}".
+  // Saya tidak mengerti permintaan "${message.body}".
 
-Silakan ketik:
-• *Menu* - untuk melihat menu utama
-• *English* - untuk bahasa Inggris
-• *HiFi* - untuk layanan HiFi
+  // Silakan ketik:
+  // • *Menu* - untuk melihat menu utama
+  // • *English* - untuk bahasa Inggris
+  // • *HiFi* - untuk layanan HiFi
 
-Atau hubungi customer service untuk bantuan lebih lanjut.`;
+  // Atau hubungi customer service untuk bantuan lebih lanjut.`;
 
-    await sendSimpleResponse(message, client, helpMessage);
-    return;
-  }
+  //     await sendSimpleResponse(message, client, helpMessage);
+  //     return;
+  //   }
 
   // For very short or unrecognized messages, show welcome
   if (text.length <= 1) {

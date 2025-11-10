@@ -215,7 +215,8 @@ export async function getSholatByLocation(kodeLokasi) {
     const doa = await getDoaAcak(url1);
     console.log(doa);
     const quoteText = doa[0].n_des;
-    let sumber = "bimasislam.kemenag.go.id";
+    // let sumber = "bimasislam.kemenag.go.id";
+    let sumber = "kementrian agama RI";
 
     let replyMsg =
       `🕌 *Jadwal Sholat ${sholatData.data.lokasi.toUpperCase()}*\n` +
