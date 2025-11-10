@@ -13,13 +13,14 @@ export default async function groupMessageHandler(client, message) {
   console.log(`👥 Grup: ${chat.name}`);
   const oriText = message.body;
 
-  if (
-    (message.hasMedia && message.type === "audio") ||
-    message.type === "ptt"
-  ) {
-    await handleVoiceMessage(chat, message);
-    return; // exit after handling voice
-  }
+  // sementara kiriman audio/voice tidak di-handle
+  // if (
+  //   (message.hasMedia && message.type === "audio") ||
+  //   message.type === "ptt"
+  // ) {
+  //   await handleVoiceMessage(chat, message);
+  //   return; // exit after handling voice
+  // }
 
   if (text.startsWith("halo musashi") || text.startsWith("hi musashi")) {
     // Get sender info
