@@ -195,7 +195,7 @@ export async function getSholatByLocation(kodeLokasi) {
 
     let sholatData = res.data;
     let jadwal = sholatData.data.jadwal;
-    console.log("Hijri Date:", hijriString);
+    //console.log("Hijri Date:", hijriString);
 
     //  `🗓️ ${jadwal.tanggal} \n\n` +
     // let replyMsg =
@@ -213,10 +213,10 @@ export async function getSholatByLocation(kodeLokasi) {
 
     const url1 = "https://drharryhuiz.my.id/rn01/getDataQuote.php";
     const doa = await getDoaAcak(url1);
-    console.log(doa);
+    //console.log(doa);
     const quoteText = doa[0].n_des;
     // let sumber = "bimasislam.kemenag.go.id";
-    let sumber = "kementrian agama RI";
+    let sumber = "Kementrian Agama RI";
 
     let replyMsg =
       `🕌 *Jadwal Sholat ${sholatData.data.lokasi.toUpperCase()}*\n` +
@@ -250,12 +250,12 @@ export async function getSholatByLocation(kodeLokasi) {
 export async function getKodeKota(namaKota) {
   try {
     const url = `https://api.myquran.com/v2/sholat/kota/cari/${namaKota}`;
-    console.log("Mencarixx kode kota untuk:", url);
+    // console.log("Mencarixx kode kota untuk:", url);
     // const res = await axios.get(
     //   `https://api.myquran.com/v2/sholat/kota/cari/${namaKota}`
     // );
     const res = await axios.get(url, { timeout: 15000 });
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.status && res.data.data.length > 0) {
       return res.data.data.map((k) => k.id);
     } else {
@@ -388,7 +388,7 @@ export async function handleJadwalSholat(chat, text) {
     return;
   }
 
-  console.log(`🔍 Mencari kode kota untuk: ${namaKota}`);
+  // console.log(`🔍 Mencari kode kota untuk: ${namaKota}`);
   const idKotaArray = await getKodeKota(namaKota);
 
   if (idKotaArray.length === 0) {
