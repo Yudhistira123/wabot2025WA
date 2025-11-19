@@ -27,7 +27,7 @@ const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
     headless: true,
-    executablePath: "/usr/bin/google-chrome",
+    executablePath: "/usr/bin/chromium-browser",
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
@@ -47,7 +47,7 @@ const client = new Client({
 initMQTT(client);
 
 client.on("qr", (qr) => {
-  console.log("📱 Scan QR code berikut untuk login:");
+  console.log("📱 Scan QR code berikut untuk loginx:");
   qrcode.generate(qr, { small: true });
 });
 

@@ -1,13 +1,17 @@
 import mqtt from "mqtt";
 
-const mqttBroker = "mqtt://103.27.206.14:1883";
+const mqttBroker = "mqtt://154.19.37.27:1883";
 //const mqttTopics = ["R1.JC.05", "R1.JC.06", "test/php"];
 const mqttTopics = ["test/php"]; //
 
 let mqttClient; // keep global ref so we can publish outside init
 
 export function initMQTT(client) {
-  mqttClient = mqtt.connect(mqttBroker);
+  //mqttClient = mqtt.connect(mqttBroker);
+  mqttClient = mqtt.connect(mqttBroker, {
+    username: "yudhi",  // ganti dengan username MQTT kamu
+    password: "yudhi123",  // ganti dengan password MQTT kamu
+  });
   mqttClient.on("connect", () => {
     console.log("✅ Connected to MQTT broker");
     mqttClient.subscribe(mqttTopics, (err) => {
