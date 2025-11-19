@@ -13,7 +13,7 @@ export function initMQTT(client) {
     password: "yudhi123",  // ganti dengan password MQTT kamu
   });
   mqttClient.on("connect", () => {
-    console.log("✅ Connected to MQTT broker");
+    console.log("✅ Connected to MQTT brokerxx");
     mqttClient.subscribe(mqttTopics, (err) => {
       if (!err) {
         console.log(`📡 Subscribed to topics: ${mqttTopics.join(", ")}`);
